@@ -10,38 +10,131 @@
 
 <body>
   <header>
-    <h1>Task Tracker</h1>
+    <h1>My Song History</h1>
   </header>
   <form id="taskform">
     <div class="form-row">
-      <label for="taskName">Name</label>
-      <input type="text" name="taskName" id="taskName" required="true" />
+      <label for="songTitle">What is your song's title?</label>
+      <input type="text" name="songTitle" id="songTitle" required="true"  placeholder="Happy Birthday"/>
     </div>
+
+    <div class="form-row artistAdder">
+      <label for="artistText">Who contributed to the song?</label>
+      <input type="text" name="artistText" id="artistText"  placeholder="John Lennon"/>
+
+      <button id="artistButton" type="button">
+        Add To Song
+      </button>
+    </div>
+
+    <p>Please add at least 1 artist</p>
+    <ul id="artistList"></ul>
+
     <div class="form-row">
-      <label for="taskType">Type</label>
-      <select id="taskType" name="taskType" required="true" >
+      <label for="songLink">Link to stream song:</label>
+      <input type="text" name="songLink" id="songLink" required="true"  placeholder="www.youtube.com/...."/>
+    </div>
+
+    <div class="form-row">
+      <label for="songYear">What year was your song released?</label>
+      <input type="number" name="songYear" id="songYear" required="true" value="2000" min=1900 max="2100"/>
+    </div>
+    
+    <div class="form-row">
+      <label for="songGenre">What genre is your song?</label>
+      <select id="songGenre" name="songGenre" required="true" >
           <option value="">Select one</option>
-            <option value="Concept Ideation">Concept Ideation</option>
-            <option value="Wireframing">Wireframing</option>
-            <option value="Application Coding">Application Coding</option>
+            <option value="Alternative">Alternative</option>
+            <option value="Country">Country</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Experimental">Experimental</option>
+            <option value="HipHop">HipHop</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Metal">Metal</option>
+            <option value="Pop">Pop</option>
+            <option value="R&B">R&B</option>
+            <option value="Rock">Rock</option>
         </select>
     </div>
+
     <div class="form-row">
-      <label for="taskRate">Rate</label>
-      <input type="number" name="taskRate" id="taskRate" required="true" />
+
+      <ul id="mood-form">
+        <li class="mood-tag">
+          <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
+          <label for="happy">Happy</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="amusing" name="amusing" value="amusing" class="mood">
+          <label for="amusing">Amusing</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="triumphant" name="triumphant" value="triumphant" class="mood">
+          <label for="triumphant">Triumphant</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="defiant" name="defiant" value="defiant" class="mood">
+          <label for="defiant">Defiant</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="energetic" name="energetic" value="energetic" class="mood">
+          <label for="energetic">Energetic</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="sad" name="sad" value="sad" class="mood">
+          <label for="sad">Sad</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="beautiful" name="beautiful" value="beautiful" class="mood">
+          <label for="beautiful">Beautiful</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="calm" name="calm" value="calm" class="mood">
+          <label for="Calm">Calm</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="dreamy" name="dreamy" value="dreamy" class="mood">
+          <label for="dreamy">Dreamy</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="erotic" name="erotic" value="erotic" class="mood">
+          <label for="erotic">Erotic</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="anxious" name="anxious" value="anxious" class="mood">
+          <label for="anxious">Anxious</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="scary" name="scary" value="scary" class="mood">
+          <label for="scary"> Scary</label>
+        </li>
+
+        <li class="mood-tag">
+          <input type="checkbox" id="annoying" name="annoying" value="annoying" class="mood">
+          <label for="annoying"> Annoying</label>
+        </li>
+      </ul>
+
     </div>
-    <div class="form-row">
-      <label for="taskTime">Time</label>
-      <input type="number" name="taskTime" id="taskTime" required="true" />
-    </div>
-    <div class="form-row">
-      <label for="taskClient">Client</label>
-      <input type="text" name="taskClient" id="taskClient" required="true" />
-    </div>
+    
+    <p id="errorText"></p>
     <div class="form-row">
       <input type="submit">
     </div>
   </form>
+
+
   <h2>Tasks</h2>
   <ul id="tasklist">
   </ul>
