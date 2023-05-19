@@ -95,6 +95,10 @@ function displaySong(song) {
 
   let songImage = null;
   songImage = images[song.genre];
+  if (songImage == null){
+    songImage = './images/thumbnails/Error.png';
+    console.log('Thumbnail error');
+  }
   // (error handling for images)
   // switch (song.genre) {
   //     case 'Rock':
