@@ -1,3 +1,7 @@
+// importing images
+import images from './images/thumbnails/*.png';
+console.log(images);
+
 // Setting up variables for our HTML elements using DOM selection
 const form = document.getElementById("taskform");
 const songListElem = document.getElementById("tasklist");
@@ -88,12 +92,31 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
 function displaySong(song) {
   let item = document.createElement("li");
   item.setAttribute("data-id", song.id);
-  item.innerHTML = `<p><strong>${song.title}</strong><br>
-  ${song.genre}</p><br>
-  ${song.link}</p><br>
-  ${song.year}</p><br>
-  ${song.artists.toString()}</p><br>
-  ${song.moods.toString()}</p><br>`;
+
+  let songImage = null;
+  songImage = images[song.genre];
+  // (error handling for images)
+  // switch (song.genre) {
+  //     case 'Rock':
+  //         taskImage = images['ideate']
+  //         break;
+  //     case 'HipHop':
+  //         taskImage = images['design']
+  //         break;
+  //     case 'Alternative':
+  //         taskImage = images['code']
+  //         break;
+  //     default:
+  //         break;
+  // }
+
+  item.innerHTML = `<img src='${songImage}' width='50'/>
+  <p><strong>${song.title}</strong></p><br>
+  <p>${song.genre}</p><br>
+  <p>${song.link}</p><br>
+  <p>${song.year}</p><br>
+  <p>${song.artists.toString()}</p><br>
+  <p>${song.moods.toString()}</p><br>`;
 
 
   songListElem.appendChild(item);
