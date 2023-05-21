@@ -68,7 +68,7 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
     genre: newGenre,
     image: null,
     id: Date.now(),
-    date: new Date().toISOString(),
+    date: new Date(),
     artists:[],
     moods: moodArray
   }
@@ -94,16 +94,21 @@ function displaySong(song) {
   item.setAttribute("data-id", song.id);
   item.setAttribute("class","wide-card");
   
-  // item.innerHTML = `<img src='${songImage}' width='50'/>
-  // <p><strong>${song.title}</strong></p><br>
-  // <p>${song.genre}</p><br>
-  // <p>${song.link}</p><br>
-  // <p>${song.year}</p><br>
-  // <p>${song.artists.toString()}</p><br>
-  // <p>${song.moods.toString()}</p><br>`;
-
   //Create the top section of the list element
   item.appendChild(generateBasicInfo(song, item));
+  
+  //Create the bottom section of the list element
+  item.appendChild(generateHiddenInfo(song, item));
+  
+
+  // Listen for when the more-info button is clicked
+  let moreButton = item.querySelector(".more");
+  let hiddenInfo = item.querySelector(".hidden-container");
+  moreButton.addEventListener("click", function(event) {
+    hiddenInfo.hidden = !hiddenInfo.hidden;
+    console.log(hiddenInfo.hidden);
+  });
+
 
   // Add the song to the song List element
   songListElem.appendChild(item);
@@ -113,103 +118,112 @@ function displaySong(song) {
 }
 
 function generateBasicInfo(song, item){
-// This functions creates all the unhidden DOM elements in a song list item
-let basicInfo = document.createElement("section");
-basicInfo.className = "basic-info";
+  // This functions creates all the unhidden DOM elements in a song list item
+  let basicInfo = document.createElement("section");
+  basicInfo.className = "basic-info";
 
-// Fetch the thumbnail URL and add it to the DOM
-let imagePath = null;
-imagePath = images[song.genre];
-if (imagePath == null){
-  imagePath = './images/thumbnails/Error.png';
-  console.log('Thumbnail error');
-}
-let thumbnail = document.createElement("img");
-thumbnail.src = imagePath;
-thumbnail.alt = song.genre + " thumbnail";
-// Thumbnail is housed in a link element
-let imageLink = document.createElement("a");
-imageLink.href = song.link;
-// link opens in new tab
-// I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
-imageLink.target = "_blank";
-imageLink.rel = "noopener noreferrer";
-imageLink.appendChild(thumbnail);
-basicInfo.appendChild(imageLink);
+  // Fetch the thumbnail URL and add it to the DOM
+  let imagePath = null;
+  imagePath = images[song.genre];
+  if (imagePath == null){
+    imagePath = './images/thumbnails/Error.png';
+    console.log('Thumbnail error');
+  }
 
-// Create div element inside basic-info that houses buttons and text content
-let basicContent = document.createElement("div");
-basicContent.className = "basic-content";
-basicInfo.appendChild(basicContent);
+  // Thumbnail link opens in new tab
+  // I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
+  basicInfo.innerHTML = 
+  `<a href="${song.link}" target="_blank" rel="noopener noreferrer">
+    <img src="${imagePath}" alt="${song.genre + " Thumbnail"}">
+  </a>
 
-// basic-content is split into two sections: top and bottom
-let topSection = document.createElement("section");
-topSection.className = "top";
-let bottomSection = document.createElement("section");
-bottomSection.className = "bottom";
-basicContent.appendChild(topSection);
-basicContent.appendChild(bottomSection);
+  <div class="basic-content">
+    <section class="top">
+      <div class="name-artist">
+        <a href="${song.link}" target="_blank" rel="noopener noreferrer">
+          <strong>${song.title}</strong>
+        <p>${song.artists.toString()}</p>
+        </a>
+      </div>
+      <button class='delete'>
+        Delete
+      </button>
+    </section>
 
-// Create div element housing the title and artist of song
-let nameArtistDiv = document.createElement("div");
-nameArtistDiv.className = "name-artist";
-topSection.appendChild(nameArtistDiv);
-// Create and add song title DOM element
-let titleElem = document.createElement("strong");
-titleElem.innerHTML = song.title;
-nameArtistDiv.appendChild(titleElem);
-// Create and add song artists DOM element
-let artistsElem = document.createElement("p");
-artistsElem.innerHTML= song.artists.toString();
-nameArtistDiv.appendChild(artistsElem);
+    <section class="bottom">
+      <button class="more">
+        More Info
+      </button>
 
-// Setup the delete Button
-let deleteButton = document.createElement("button");
-let delButtonText = document.createTextNode("Delete");
-deleteButton.appendChild(delButtonText);
-topSection.appendChild(deleteButton);
-// Listen for when the delete button is clicked
-deleteButton.addEventListener("click", function(event) {
-  songList.forEach(function(songArrayElement, songArrayIndex) {
-    if (songArrayElement.id == song.id) {
-      songList.splice(songArrayIndex, 1)
-    }
+      <div class="tags">
+      </div>
+    </section>
+  </div>`
+
+  // Listen for when the delete button is clicked
+  let deleteButton = basicInfo.querySelector(".delete");
+  deleteButton.addEventListener("click", function(event) {
+    songList.forEach(function(songArrayElement, songArrayIndex) {
+      if (songArrayElement.id == song.id) {
+        songList.splice(songArrayIndex, 1)
+      }
+    });
+    // Make sure the deletion worked by logging out the whole array
+    console.log(songList);
+    localStorage.setItem('savedSongs', JSON.stringify(songList));
+    item.remove(); // Remove the task item from the page when button clicked
+    // Because we used 'let' to define the item, this will always delete the right element
   });
-  // Make sure the deletion worked by logging out the whole array
-  console.log(songList);
-  localStorage.setItem('savedSongs', JSON.stringify(songList));
-  item.remove(); // Remove the task item from the page when button clicked
-  // Because we used 'let' to define the item, this will always delete the right element
-});
 
-// Create and add the "More Info" button
-// This goes in the bottom section
-let moreButton = document.createElement("button");
-let moreButtonText = document.createTextNode("More Info");
-moreButton.appendChild(moreButtonText);
-moreButton.className = "more-button";
-bottomSection.appendChild(moreButton);
-// Listen for when the "More Info" button is clicked
-moreButton.addEventListener("click", function(event) {
-  console.log(song.id);
-});
+  //Add mood tags to the DOM
+  let tags = basicInfo.querySelector(".tags");
+  song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
+    // Limit to two moods for collapsed view
+    if (moodArrayIndex > 1){return;}
+    let moodTag = document.createElement("p");
+    moodTag.className = "tag";
+    moodTag.textContent = moodArrayElement;
+    tags.appendChild(moodTag);
+  });
 
-// Create div element housing song mood "tags"
-// This goes in the bottom section
-let tagsDiv = document.createElement("div");
-tagsDiv.className = "tags";
-bottomSection.appendChild(tagsDiv);
-// Add in each mood associated with a song
-song.moods.forEach(function(mood) {
-  let moodTag = document.createElement("p");
-  moodTag.className = "tag ";
-  moodTag.textContent = mood;
-  tagsDiv.appendChild(moodTag);
-});
-
-return basicInfo;
+  return basicInfo;
 }
 
+
+function generateHiddenInfo(song, item){
+  let hiddenInfoContainer= document.createElement("section");
+  hiddenInfoContainer.className = "hidden-container";
+  hiddenInfoContainer.hidden = true;
+
+  // Setup Date Added field for below
+
+
+
+  hiddenInfoContainer.innerHTML = `
+    <div class="hidden-info">
+      <div class="id-area">
+        <strong>ID</strong>
+        <p>${song.id}</p>
+      </div>
+      <div class="date-area">
+        <strong>Date Added</strong>
+        <p>${song.date.toString().slice(0, 10)}</p>
+      </div>
+      <div class="year-area">
+        <strong>Year</strong>
+        <p>${song.year}</p>
+      </div>
+      <div class="link-area">
+        <strong>Link</strong>
+        <a href="${song.link}" target="_blank" rel="noopener noreferrer">
+          <p>${song.link}</p>
+        </a>
+      </div>
+    </div>
+  `
+
+  return hiddenInfoContainer;
+}
 //#region My Region
 // Fetch previous tasks from Local Storage
 let savedSongs = JSON.parse(localStorage.getItem('savedSongs'));  
