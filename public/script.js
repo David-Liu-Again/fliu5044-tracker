@@ -92,65 +92,122 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
 function displaySong(song) {
   let item = document.createElement("li");
   item.setAttribute("data-id", song.id);
+  item.setAttribute("class","wide-card");
+  
+  // item.innerHTML = `<img src='${songImage}' width='50'/>
+  // <p><strong>${song.title}</strong></p><br>
+  // <p>${song.genre}</p><br>
+  // <p>${song.link}</p><br>
+  // <p>${song.year}</p><br>
+  // <p>${song.artists.toString()}</p><br>
+  // <p>${song.moods.toString()}</p><br>`;
 
-  let songImage = null;
-  songImage = images[song.genre];
-  if (songImage == null){
-    songImage = './images/thumbnails/Error.png';
-    console.log('Thumbnail error');
-  }
-  // (error handling for images)
-  // switch (song.genre) {
-  //     case 'Rock':
-  //         taskImage = images['ideate']
-  //         break;
-  //     case 'HipHop':
-  //         taskImage = images['design']
-  //         break;
-  //     case 'Alternative':
-  //         taskImage = images['code']
-  //         break;
-  //     default:
-  //         break;
-  // }
+  //Create the top section of the list element
+  item.appendChild(generateBasicInfo(song, item));
 
-  item.innerHTML = `<img src='${songImage}' width='50'/>
-  <p><strong>${song.title}</strong></p><br>
-  <p>${song.genre}</p><br>
-  <p>${song.link}</p><br>
-  <p>${song.year}</p><br>
-  <p>${song.artists.toString()}</p><br>
-  <p>${song.moods.toString()}</p><br>`;
-
-
+  // Add the song to the song List element
   songListElem.appendChild(item);
 
   // Clear the value of the input once the task has been added to the page
   form.reset();
+}
 
-  // Setup delete button DOM elements
-  let delButton = document.createElement("button");
-  let delButtonText = document.createTextNode("Delete");
-  delButton.appendChild(delButtonText);
-  item.appendChild(delButton); // Adds a delete button to every task
+function generateBasicInfo(song, item){
+// This functions creates all the unhidden DOM elements in a song list item
+let basicInfo = document.createElement("section");
+basicInfo.className = "basic-info";
 
-  // Listen for when the delete button is clicked
-  delButton.addEventListener("click", function(event) {
+// Fetch the thumbnail URL and add it to the DOM
+let imagePath = null;
+imagePath = images[song.genre];
+if (imagePath == null){
+  imagePath = './images/thumbnails/Error.png';
+  console.log('Thumbnail error');
+}
+let thumbnail = document.createElement("img");
+thumbnail.src = imagePath;
+thumbnail.alt = song.genre + " thumbnail";
+// Thumbnail is housed in a link element
+let imageLink = document.createElement("a");
+imageLink.href = song.link;
+// link opens in new tab
+// I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
+imageLink.target = "_blank";
+imageLink.rel = "noopener noreferrer";
+imageLink.appendChild(thumbnail);
+basicInfo.appendChild(imageLink);
 
-    songList.forEach(function(songArrayElement, songArrayIndex) {
-      if (songArrayElement.id == item.getAttribute('data-id')) {
-        songList.splice(songArrayIndex, 1)
-      }
-    })
+// Create div element inside basic-info that houses buttons and text content
+let basicContent = document.createElement("div");
+basicContent.className = "basic-content";
+basicInfo.appendChild(basicContent);
 
-    // Make sure the deletion worked by logging out the whole array
-    console.log(songList)
-    localStorage.setItem('savedSongs', JSON.stringify(songList));
-    item.remove(); // Remove the task item from the page when button clicked
-    // Because we used 'let' to define the item, this will always delete the right element
-  })
+// basic-content is split into two sections: top and bottom
+let topSection = document.createElement("section");
+topSection.className = "top";
+let bottomSection = document.createElement("section");
+bottomSection.className = "bottom";
+basicContent.appendChild(topSection);
+basicContent.appendChild(bottomSection);
 
-  
+// Create div element housing the title and artist of song
+let nameArtistDiv = document.createElement("div");
+nameArtistDiv.className = "name-artist";
+topSection.appendChild(nameArtistDiv);
+// Create and add song title DOM element
+let titleElem = document.createElement("strong");
+titleElem.innerHTML = song.title;
+nameArtistDiv.appendChild(titleElem);
+// Create and add song artists DOM element
+let artistsElem = document.createElement("p");
+artistsElem.innerHTML= song.artists.toString();
+nameArtistDiv.appendChild(artistsElem);
+
+// Setup the delete Button
+let deleteButton = document.createElement("button");
+let delButtonText = document.createTextNode("Delete");
+deleteButton.appendChild(delButtonText);
+topSection.appendChild(deleteButton);
+// Listen for when the delete button is clicked
+deleteButton.addEventListener("click", function(event) {
+  songList.forEach(function(songArrayElement, songArrayIndex) {
+    if (songArrayElement.id == song.id) {
+      songList.splice(songArrayIndex, 1)
+    }
+  });
+  // Make sure the deletion worked by logging out the whole array
+  console.log(songList);
+  localStorage.setItem('savedSongs', JSON.stringify(songList));
+  item.remove(); // Remove the task item from the page when button clicked
+  // Because we used 'let' to define the item, this will always delete the right element
+});
+
+// Create and add the "More Info" button
+// This goes in the bottom section
+let moreButton = document.createElement("button");
+let moreButtonText = document.createTextNode("More Info");
+moreButton.appendChild(moreButtonText);
+moreButton.className = "more-button";
+bottomSection.appendChild(moreButton);
+// Listen for when the "More Info" button is clicked
+moreButton.addEventListener("click", function(event) {
+  console.log(song.id);
+});
+
+// Create div element housing song mood "tags"
+// This goes in the bottom section
+let tagsDiv = document.createElement("div");
+tagsDiv.className = "tags";
+bottomSection.appendChild(tagsDiv);
+// Add in each mood associated with a song
+song.moods.forEach(function(mood) {
+  let moodTag = document.createElement("p");
+  moodTag.className = "tag ";
+  moodTag.textContent = mood;
+  tagsDiv.appendChild(moodTag);
+});
+
+return basicInfo;
 }
 
 //#region My Region
@@ -167,8 +224,6 @@ if (savedSongs !== null){
 }
 //#region
 
-// Call the function with test values for the input paramaters
-// addTask(Math.floor(Math.random()*1000), "Concept Ideation", 50, 5, "Google");
 
 // Log the array to the console.
 console.log(songList);

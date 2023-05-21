@@ -34,3 +34,244 @@ html {
     padding: .5em;
     flex-grow: 1;
   }
+
+
+#tasklist{
+  width: 100%
+}
+/* This is the stylesheet that is used by every webpage. Each webpage has their
+own stylesheet for styles exclusive to that page. Any styles shared between
+ 2 or more pages are here. This is to help with organisation of code. */
+
+/* GENERAL---------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
+
+img {
+  image-rendering: auto;
+}
+
+[hidden] {
+  display: none;
+}
+
+
+html, body {
+  height:100%;
+  width:100%;
+  font-size: 16px;
+  font-style: normal;
+  font-family: Kumbh Sans;
+  font-weight: 400;
+}
+
+main{
+    overflow-x:hidden;
+}
+
+body > *{
+  width: 100%;
+}
+
+
+main > section:not(:first-child){
+/*   above line of selector code
+ from: https://stackoverflow.com/questions/5065766/css3-selector-question-for-all-but-first-select */
+  margin-top: 2rem;
+}
+
+img{
+  width: 100%;
+}
+
+button{
+  margin: 0;
+  padding: 10px 15px;
+  background: #8E1702;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
+
+  font-style: normal;
+  font-family: Kumbh Sans;
+  font-weight: 400;
+
+  font-size: 1.5em;
+  color: #FFFFFF;
+}
+
+/* TAGS ----------------------------------------------------------------------*/
+/* used across webapges for categorising tourist attractions */
+.tag{
+  color: white;
+  background-color: rgb(0, 0, 0);
+  width: fit-content;
+  height: fit-content;
+  border-radius: 1.1em/50%;
+  padding: 0.3em 1em;
+}
+
+.all{
+  background-color: #E79800;
+}
+
+.history{
+  background-color: #7D00AC;
+}
+
+.culture{
+  background-color: #C00000;
+}
+
+.nature{
+  background-color: #008438;
+}
+
+.mining{
+  background-color: #0077BB;
+}
+
+.manmade{
+  background-color: #8F4505;
+}
+
+.unselected{
+  opacity: 50%;
+}
+
+/* Footer------------------------------------------------------------------------ */
+footer{
+  background-color: #8E1702;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 25px;
+  gap: 25px;
+  width: 100%;
+  height: 50px;
+
+  font-family: Kumbh Sans;
+  font-size: 1.5em;
+  color: #FFE0A4;
+}
+
+footer #footer-socials{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: 10px;
+  margin-right: 0;
+  gap: 25px;
+}
+
+footer a:visited{
+  color: #D9D0BF;
+}
+
+@media screen and (max-width:700px){
+
+  footer{
+    font-size: 1em;
+    padding: 0px 10px;
+  }
+}
+
+
+/* wide cards-------------------------------------- */
+/* Many webpages use cards that span the width of the screen */
+
+.wide-card{
+  display: flex;
+  flex-direction: column;
+
+  width:  90%;
+  height: fit-content;
+
+  background-color: transparent;
+
+  box-shadow: 0px 20.8857px 16.7085px rgba(0, 0, 0, 0.35);
+  border: 1rem solid;
+  color: #595959;
+
+  padding: 20px;
+  gap: 20px;
+}
+
+.wide-card img{
+  height: 230px;
+  width: 230px;
+}
+
+.basic-content{
+  width: 100%;
+  height: 100%;
+}
+
+.basic-info{
+  width: 100%;
+  height: 230px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  gap: 20px;
+}
+
+/* "top" layout auto-generated  from https://grid.layoutit.com */
+
+.bottom, .top, .tags{
+  /* grid-template-columns: 1fr 1fr; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tags{
+  width: fit-content;
+  align-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.top {
+  border-bottom: 3px solid #8E1702;
+  height: 110px;
+}
+
+.bottom{
+  height: 100px;
+}
+
+.name-artist{
+  font-size: 2em;
+}  
+
+/* List View Item: Hidden Info------------- */
+.hidden-info{  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "id-area date-area year-area"
+    "link-area link-area link-area"
+    ". . .";
+}
+
+.id-area { grid-area: id-area; }
+
+.date-area { grid-area: date-area; }
+
+.year-area { grid-area: year-area; }
+
+.link-area { grid-area: link-area; }
+
+  
+  
