@@ -116,11 +116,11 @@ function displaySong(song) {
     summarisedMoods.hidden = !hiddenInfo.hidden;
     if (!hiddenInfo.hidden){
       // Content is not hidden
-      moreButton.checked = false;
+      moreButton.classList.add("checked");
       moreButtonText.innerHTML = "Show Less";
     } else {
       // Content is hidden
-      moreButton.checked = true;
+      moreButton.classList.remove("checked");
       moreButtonText.innerHTML = "Show More";
     }
     console.log(hiddenInfo.hidden);

@@ -281,13 +281,14 @@ footer a:visited{
   flex-direction: row;
 }
 
-.more:checked .img{
+.checked img{
   transform: rotate(0.25turn);
+  width: 80px;
 }
 
 .more img{
   height: 80px;
   width: fit-content;
-  transform: rotate(0turn);
+  /* transform: rotate(0turn); */
 } 
 
