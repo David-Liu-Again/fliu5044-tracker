@@ -20,6 +20,10 @@ artistAddButton.addEventListener("click", function(event) {
   newArtist.innerHTML = artistTextBox.value;
   artistList.appendChild(newArtist);
 
+  newArtist.addEventListener("click", function(event) {
+    newArtist.remove(); // Make artist name delete itself when clicked
+  });
+
   console.log("artist " + newArtist.innerHTML +" added!");
   artistTextBox.value = "";
 });
