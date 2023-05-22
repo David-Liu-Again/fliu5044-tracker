@@ -56,7 +56,7 @@ img {
 }
 
 [hidden] {
-  display: none;
+  display: none !important;
 }
 
 
@@ -260,10 +260,13 @@ footer a:visited{
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
+    "mood-area mood-area mood-area"
     "id-area date-area year-area"
     "link-area link-area link-area"
-    ". . .";
+    ;
 }
+
+.mood-area { grid-area: mood-area; }
 
 .id-area { grid-area: id-area; }
 
@@ -273,5 +276,18 @@ footer a:visited{
 
 .link-area { grid-area: link-area; }
 
-  
-  
+.more{
+  display: flex;
+  flex-direction: row;
+}
+
+.more:checked .img{
+  transform: rotate(0.25turn);
+}
+
+.more img{
+  height: 80px;
+  width: fit-content;
+  transform: rotate(0turn);
+} 
+

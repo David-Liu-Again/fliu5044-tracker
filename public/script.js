@@ -1,6 +1,7 @@
 // importing images
-import images from './images/thumbnails/*.png';
-console.log(images);
+import thumbnailImages from './images/thumbnails/*.png';
+import uiImages from './images/ui/*.svg';
+console.log(uiImages);
 
 // Setting up variables for our HTML elements using DOM selection
 const form = document.getElementById("taskform");
@@ -95,17 +96,33 @@ function displaySong(song) {
   item.setAttribute("class","wide-card");
   
   //Create the top section of the list element
-  item.appendChild(generateBasicInfo(song, item));
+  let basicInfo = generateBasicInfo(song, item);
+  item.appendChild(basicInfo);
   
   //Create the bottom section of the list element
-  item.appendChild(generateHiddenInfo(song, item));
+  let hiddenInfo= generateHiddenInfo(song, item);
+  item.appendChild(hiddenInfo);
   
 
   // Listen for when the more-info button is clicked
   let moreButton = item.querySelector(".more");
-  let hiddenInfo = item.querySelector(".hidden-container");
+  let moreButtonText = moreButton.querySelector("p");
+  // console.log(moreButtonText);
+  let summarisedMoods = basicInfo.querySelector(".summarised");
+  console.log(summarisedMoods);
+
   moreButton.addEventListener("click", function(event) {
     hiddenInfo.hidden = !hiddenInfo.hidden;
+    summarisedMoods.hidden = !hiddenInfo.hidden;
+    if (!hiddenInfo.hidden){
+      // Content is not hidden
+      moreButton.checked = false;
+      moreButtonText.innerHTML = "Show Less";
+    } else {
+      // Content is hidden
+      moreButton.checked = true;
+      moreButtonText.innerHTML = "Show More";
+    }
     console.log(hiddenInfo.hidden);
   });
 
@@ -117,6 +134,20 @@ function displaySong(song) {
   form.reset();
 }
 
+function appendMoods(tagsElem, song){
+  song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
+    // Limit to two moods for summarised view
+    if ((moodArrayIndex > 1) && (tagsElem.className.includes("summarised"))){
+      console.log("Summarised moods for " + song.id);
+      return;
+    }
+    let moodTag = document.createElement("p");
+    moodTag.className = "tag";
+    moodTag.textContent = moodArrayElement;
+    tagsElem.appendChild(moodTag);
+  });
+}
+
 function generateBasicInfo(song, item){
   // This functions creates all the unhidden DOM elements in a song list item
   let basicInfo = document.createElement("section");
@@ -124,7 +155,7 @@ function generateBasicInfo(song, item){
 
   // Fetch the thumbnail URL and add it to the DOM
   let imagePath = null;
-  imagePath = images[song.genre];
+  imagePath = thumbnailImages[song.genre];
   if (imagePath == null){
     imagePath = './images/thumbnails/Error.png';
     console.log('Thumbnail error');
@@ -152,10 +183,11 @@ function generateBasicInfo(song, item){
 
     <section class="bottom">
       <button class="more">
-        More Info
+        <img src = "${uiImages["triangle"]}">
+        <p>More Info</p>
       </button>
 
-      <div class="tags">
+      <div class="tags summarised">
       </div>
     </section>
   </div>`
@@ -177,53 +209,51 @@ function generateBasicInfo(song, item){
 
   //Add mood tags to the DOM
   let tags = basicInfo.querySelector(".tags");
-  song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
-    // Limit to two moods for collapsed view
-    if (moodArrayIndex > 1){return;}
-    let moodTag = document.createElement("p");
-    moodTag.className = "tag";
-    moodTag.textContent = moodArrayElement;
-    tags.appendChild(moodTag);
-  });
+  appendMoods(tags, song);
 
   return basicInfo;
 }
 
-
 function generateHiddenInfo(song, item){
   let hiddenInfoContainer= document.createElement("section");
-  hiddenInfoContainer.className = "hidden-container";
+  hiddenInfoContainer.className = "hidden-info";
   hiddenInfoContainer.hidden = true;
 
-  // Setup Date Added field for below
-
-
-
+  // Used CSS grid generator for below HTML:
+  // https://grid.layoutit.com
   hiddenInfoContainer.innerHTML = `
-    <div class="hidden-info">
-      <div class="id-area">
-        <strong>ID</strong>
-        <p>${song.id}</p>
-      </div>
-      <div class="date-area">
-        <strong>Date Added</strong>
-        <p>${song.date.toString().slice(0, 10)}</p>
-      </div>
-      <div class="year-area">
-        <strong>Year</strong>
-        <p>${song.year}</p>
-      </div>
-      <div class="link-area">
-        <strong>Link</strong>
-        <a href="${song.link}" target="_blank" rel="noopener noreferrer">
-          <p>${song.link}</p>
-        </a>
+    <div class="mood-area">
+      <strong>Moods</strong>
+      <div class="tags">
       </div>
     </div>
+    <div class="id-area">
+      <strong>ID</strong>
+      <p>${song.id}</p>
+    </div>
+    <div class="date-area">
+      <strong>Date Added</strong>
+      <p>${song.date.toString().slice(0, 10)}</p>
+    </div>
+    <div class="year-area">
+      <strong>Year</strong>
+      <p>${song.year}</p>
+    </div>
+    <div class="link-area">
+      <strong>Link</strong>
+      <a href="${song.link}" target="_blank" rel="noopener noreferrer">
+        <p>${song.link}</p>
+      </a>
+    </div>
   `
+  //Add mood tags to the DOM
+  let tags = hiddenInfoContainer.querySelector(".tags");
+  // console.log(tags);
+  appendMoods(tags, song);
 
   return hiddenInfoContainer;
 }
+
 //#region My Region
 // Fetch previous tasks from Local Storage
 let savedSongs = JSON.parse(localStorage.getItem('savedSongs'));  
