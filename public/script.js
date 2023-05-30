@@ -9,7 +9,10 @@ const songListElem = document.getElementById("tasklist");
 const artistAddButton = document.getElementById("artistButton");
 const artistTextBox = document.getElementById("artistText");
 const artistList = document.getElementById("artistList");
-const errorTextElem = document.getElementById("errorText");
+const msgTextElem = document.getElementById("errorText");
+const formModal = document.getElementById("formModal");
+const addSongButton = document.getElementById("fixed");
+const formClose = document.getElementsByClassName("close")[0];
 
 // Create a new array called 'taskList'
 var songList = [];
@@ -28,15 +31,37 @@ artistAddButton.addEventListener("click", function(event) {
   artistTextBox.value = "";
 });
 
+{
+  // Modal code from  https://www.w3schools.com/howto/howto_css_modals.asp --------
+
+  // When the user clicks on the button, open the modal
+  addSongButton.onclick = function() {
+    formModal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  formClose.onclick = function() {
+    formModal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == formModal) {
+      formModal.style.display = "none";
+    }
+  }
+}
+
+
 // Set up submit button for Form 
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
   if (artistList.innerHTML === ''){
-    errorTextElem.innerHTML = 'Please add at least 1 artist name';
+    msgTextElem.innerHTML = 'Please add at least 1 artist name';
     return;
   } else{
-    errorTextElem.innerHTML = "";
+    msgTextElem.innerHTML = "";
   }
 
   console.log(form.elements);
@@ -60,6 +85,8 @@ form.addEventListener("submit", function(event) {
     form.elements.songGenre.value,
     moodArray
   );
+
+  msgTextElem.innerHTML = `New song added!`;
   console.log(songList);
 })
 
@@ -275,3 +302,4 @@ if (savedSongs !== null){
 
 // Log the array to the console.
 console.log(songList);
+
