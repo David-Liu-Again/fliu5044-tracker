@@ -5,7 +5,7 @@ console.log(uiImages);
 
 // Setting up variables for our HTML elements using DOM selection
 const form = document.getElementById("taskform");
-const songListElem = document.getElementById("tasklist");
+const songListElem = document.getElementById("songlist");
 const artistAddButton = document.getElementById("artistButton");
 const artistTextBox = document.getElementById("artistText");
 const artistList = document.getElementById("artistList");
@@ -124,7 +124,7 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
 function displaySong(song) {
   let item = document.createElement("li");
   item.setAttribute("data-id", song.id);
-  item.setAttribute("class","wide-card");
+  item.setAttribute("class","song-card");
   
   //Create the top section of the list element
   let basicInfo = generateBasicInfo(song, item);
@@ -204,12 +204,13 @@ function generateBasicInfo(song, item){
       <div class="name-artist">
         <a href="${song.link}" target="_blank" rel="noopener noreferrer">
           <strong>${song.title}</strong>
-        <p>${song.artists.toString()}</p>
+          <br>
+          <p>${song.artists.toString()}</p>
         </a>
       </div>
-      <button class='delete'>
-        Delete
-      </button>
+      <div class='delete'>
+        <img src=${uiImages["bin"]} alt="delete button">
+      </div>
     </section>
 
     <section class="bottom">
