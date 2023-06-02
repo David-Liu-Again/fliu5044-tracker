@@ -12,14 +12,14 @@
   <header>
     <div id="logo">
       <img src="./images/ui/music.svg" alt="musical note">
-      <h1>My Song History</h1>
+      <p><strong>My Song History</strong></p>
     </div>
   </header>
   
   <main>
     <button id="fixed">
-      <img src="images/ui/plus.svg">
-      Add New Song
+        <img src="images/ui/plus.svg">
+        Add New Song
     </button>
     
     <!-- list view -->
@@ -34,30 +34,34 @@
     <div id="formModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
+        
         <span class="close">&times;</span>
 
-        <h2>Add New Song</h2>
         <form id="taskform">
+          <h2><strong>Add New Song</strong></h2>
           <div class="form-row">
             <label for="songTitle">What is your song's title?</label>
-            <input type="text" name="songTitle" id="songTitle" required="true"  placeholder="Happy Birthday"/>
+            <input type="text" name="songTitle" id="songTitle" required="true"  placeholder="e.g. Happy Birthday"/>
           </div>
           
-          <div class="form-row artistAdder">
+          <div class="form-row">
             <label for="artistText">Who contributed to the song?</label>
-            <input type="text" name="artistText" id="artistText"  placeholder="John Lennon"/>
             
-            <button id="artistButton" type="button">
-              Add To Song
-            </button>
+            <div id="artist-adder">
+              <input type="text" name="artistText" id="artistText"  placeholder="e.g. John Lennon"/>
+              
+              <button id="artistButton" type="button">
+                Add To Song
+              </button>
+            </div>
           </div>
           
-          <p>Please add at least 1 artist</p>
-          <ul id="artistList"></ul>
+          <p id="artist-msg">Please add at least 1 artist name. Click to delete an artist.</p>
+          <ul id="artist-list"></ul>
           
           <div class="form-row">
             <label for="songLink">Link to stream song:</label>
-            <input type="text" name="songLink" id="songLink" required="true"  placeholder="www.youtube.com/...."/>
+            <input type="text" name="songLink" id="songLink" required="true"  placeholder="e.g. www.youtube.com/...."/>
           </div>
           
           <div class="form-row">
@@ -83,70 +87,98 @@
           </div>
           
           <div class="form-row">
+            <p>How would you describe your song?</p>
             <ul id="mood-form">
               <li class="mood-tag">
-                <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
-                <label for="happy">Happy</label>
+                <label for="happy">
+                  <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
+                  <span>Happy</span>
+                </label>
+              </li>
+
+              <li class="mood-tag">
+                <label for="defiant">
+                  <input type="checkbox" id="defiant" name="defiant" value="defiant" class="mood">
+                  <span>Defiant</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="amusing" name="amusing" value="amusing" class="mood">
-                <label for="amusing">Amusing</label>
+                <label for="energetic">
+                  <input type="checkbox" id="energetic" name="energetic" value="energetic" class="mood">
+                  <span>Energetic</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="triumphant" name="triumphant" value="triumphant" class="mood">
-                <label for="triumphant">Triumphant</label>
+                <label for="sad">
+                  <input type="checkbox" id="sad" name="sad" value="sad" class="mood">
+                  <span>Sad</span>
+                </label>
+              </li>
+
+              <li class="mood-tag">
+                <label for="beautiful">
+                  <input type="checkbox" id="beautiful" name="beautiful" value="beautiful" class="mood">
+                  <span>Beautiful</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="defiant" name="defiant" value="defiant" class="mood">
-                <label for="defiant">Defiant</label>
+                <label for="calm">
+                  <input type="checkbox" id="calm" name="calm" value="calm" class="mood">
+                  <span>Calm</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="energetic" name="energetic" value="energetic" class="mood">
-                <label for="energetic">Energetic</label>
+                <label for="amusing">
+                  <input type="checkbox" id="amusing" name="amusing" value="amusing" class="mood">
+                  <span>Amusing</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="sad" name="sad" value="sad" class="mood">
-                <label for="sad">Sad</label>
+                <label for="triumphant">
+                  <input type="checkbox" id="triumphant" name="triumphant" value="triumphant" class="mood">
+                  <span>Triumphant</span>
+                </label>
+              </li>
+              
+              
+              <li class="mood-tag">
+                <label for="dreamy">
+                  <input type="checkbox" id="dreamy" name="dreamy" value="dreamy" class="mood">
+                  <span>Dreamy</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="beautiful" name="beautiful" value="beautiful" class="mood">
-                <label for="beautiful">Beautiful</label>
+                <label for="erotic">
+                  <input type="checkbox" id="erotic" name="erotic" value="erotic" class="mood">
+                  <span>Erotic</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="calm" name="calm" value="calm" class="mood">
-                <label for="Calm">Calm</label>
+                <label for="anxious">
+                  <input type="checkbox" id="anxious" name="anxious" value="anxious" class="mood">
+                  <span>Anxious</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="dreamy" name="dreamy" value="dreamy" class="mood">
-                <label for="dreamy">Dreamy</label>
+                <label for="scary">
+                  <input type="checkbox" id="scary" name="scary" value="scary" class="mood">
+                  <span>Scary</span>
+                </label>
               </li>
               
               <li class="mood-tag">
-                <input type="checkbox" id="erotic" name="erotic" value="erotic" class="mood">
-                <label for="erotic">Erotic</label>
-              </li>
-              
-              <li class="mood-tag">
-                <input type="checkbox" id="anxious" name="anxious" value="anxious" class="mood">
-                <label for="anxious">Anxious</label>
-              </li>
-              
-              <li class="mood-tag">
-                <input type="checkbox" id="scary" name="scary" value="scary" class="mood">
-                <label for="scary"> Scary</label>
-              </li>
-              
-              <li class="mood-tag">
-                <input type="checkbox" id="annoying" name="annoying" value="annoying" class="mood">
-                <label for="annoying"> Annoying</label>
+                <label for="annoying">
+                  <input type="checkbox" id="annoying" name="annoying" value="annoying" class="mood">
+                  <span>Annoying</span>
+                </label>
               </li>
             </ul>
           </div>

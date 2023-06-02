@@ -1,4 +1,6 @@
 /* General Styling------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +11,7 @@
 html {
     height: 100%;
     width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 html, body {
@@ -17,57 +19,34 @@ html, body {
   width:100%;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400; 
+}
+
+button, input, select{
+  font-family: 'Poppins', sans-serif;
 }
 
 img {
   image-rendering: auto;
 }
 
-/* Button Styling ---------------------------------------*/
-button{
-  margin: 0;
-  padding: 10px 15px;
-  background: #8E1702;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  border: none;
-
-  font-style: normal;
-  font-family: Kumbh Sans;
-  font-weight: 400;
-
-  font-size: 1.5em;
-  color: #FFFFFF;
-}
-
-#fixed{
-  position: fixed;
-  /* width: 200px;
-  height: 100px; */
-  bottom: 0px;
-  right: 0px;
-  margin: 1rem;
-  z-index: 1;
-
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+.close:hover, .delete:hover, .more:hover, .artist-tag:hover, button:hover, input[type="submit"], select{
+  cursor: pointer;
 }
 
 /* header styling -------------------------------------------------*/
-header, footer{
+header{
   background-color: #3E3E3E;
   width: 100%;
 }
 header{
-  height: 100px;
-  font-size: 1.8em;
+  height: 3rem;
 }
 
 header img{
-  height: 80px;
+  height: 2rem;
   width: auto;
+  /* filter: brightness(80%); */
 }
 
 #logo{
@@ -75,59 +54,111 @@ header img{
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 0 2rem;
   width: 100%;
-  gap: 2rem;
+  gap: 0.8rem;
   height: 100%;
   align-content: center;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-/* main styling -------------------------------------------------*/
-main {
+/* main & footer styling -------------------------------------------------*/
+main, footer {
   background-color: #181818;
   width: 100%;
   height: fit-content;
-  min-height: 100%;
+
   overflow-x:hidden;
 }
 
-/* Footer Styling ------------------------------------------------------------------------ */
+main{
+  min-height: 100%;
+}
+
 footer{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0px 25px;
-  gap: 25px;
+  justify-content: center;
   height: 50px;
 
-  font-size: 1.25rem;
-  color: #181818;
+  font-size: 1rem;
+  color: #434343;
 }
 
 /* form styling -------------------------------------------------*/
-  form {
-    max-width: 900px;
-    margin: 0 auto;
-    border: 2px solid grey;
-    padding: 2em 1em;
-  }
-  
-  .form-row {
-    display: flex;
-    justify-content: flex-end;
-    padding: .5em;
-  }
-  
-  .form-row > label {
-    width: 100px;
-  }
-  
-  .form-row > input,
-  .form-row > select {
-    padding: .5em;
-    flex-grow: 1;
-  }
+form {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .5em;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.form-row > label {
+  display: block;
+}
+
+.form-row input ,.form-row select{
+  height: 3rem;
+  font-size: 1.25rem;
+}
+
+.form-row > input,
+.form-row > select {
+  padding: .5rem;
+  flex-grow: 1;
+}
+
+#artist-adder{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 1rem;
+}
+
+#artist-adder input{
+  width: 100%;
+  padding: .5rem;
+}
+
+#artist-adder button{
+  width: 12rem;
+}
+
+#artist-msg{
+  width: 100%;
+  padding: 0 1rem;
+}
+
+#artist-list, #mood-form{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: fit-content;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.error{
+  color: #c22626 !important;
+}
 
 /* modal CSS adapted from https://www.w3schools.com/howto/howto_css_modals.asp -------*/
 
@@ -147,19 +178,27 @@ footer{
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #181818;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  padding: 20px 40px;
+  width: 80%;
+  position: relative;
+  border-radius: 2rem;
+}
+
+.modal-content h2 strong{
+  font-size: 1.953rem;
+  line-height: 2.441rem;
 }
 
 /* The Close Button */
 .close {
   color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  position: absolute;
+  font-size: 4rem;
+  font-weight: normal;
+  top: 40px;
+  right: 40px;
 }
 
 .close:hover,
@@ -184,7 +223,7 @@ footer{
   display: flex;
   flex-direction: column;
 
-  width:  90%;
+  width:  1150px;
   height: fit-content;
 
   background-color: transparent;
@@ -193,31 +232,40 @@ footer{
   border: 0.2rem solid;
   color: #1F1F1F;
 
-  padding: 20px;
+  padding: 5px 30px;
   gap: 20px;
 
   margin: 2rem auto;
 }
 
-.song-card img{
-  height: 230px;
-  width: 230px;
+.thumbnail{
+  height: 10rem;
+  width: auto;
+}
+
+.basic-content, .basic-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .basic-content{
+  height: 10rem;
   width: 100%;
-  height: 100%;
+  flex-direction: column;
 }
 
 .basic-info{
   width: 100%;
-  height: 230px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 30px;
+  height: 100%;
   gap: 20px;
+  flex-direction: row;
+}
+
+
+.hidden-info strong{
+  color: #ffffff;
+  line-height: 2.5rem;
 }
 
 /* "top" layout auto-generated  from https://grid.layoutit.com */
@@ -228,6 +276,7 @@ footer{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-content: center;
 }
 
 .tags{
@@ -239,48 +288,62 @@ footer{
 
 .top {
   border-bottom: 0.2rem solid #1F1F1F;
-  height: 110px;
+  height: 4.5rem;
+}
+
+
+
+.delete, .more{
+  filter: brightness(40%);
+}
+
+.delete:hover, .more:hover{
+  filter: brightness(100%);;
 }
 
 .delete{
-  height: 100%;
-  padding: auto;  
-}
-.delete:hover img{
-  filter: brightness(100%);
-}
-
-.delete img{
-  height: 4rem;
-  width: auto;
-  filter: brightness(50%);
+  height: 2rem;
+  
+  margin: auto 0;
 }
 
 .bottom{
-  height: 100px;
+  height: 5.5rem;
 }
 
 /*Styling the name and artist */
 .name-artist{
-  font-size: 1.563rem; 
+  font-size: 1.25rem; 
 }
 
 .name-artist a{
-  color: white;
+  color: #d7d7d7;
   text-decoration: none;
 }
 
-.name-artist strong{
-  font-size: 2.441rem;
-  line-height: 1.2em;
+.name-artist strong, .modal strong, header{
+  color: white;
+  font-size: 1.563rem;
+  line-height: 2.5rem;
 }
 
 
 /* List View Item: Hidden Info------------- */
-.hidden-info{  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.modal, .hidden-info{
+  color: #d7d7d7;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  width: 100%;
+  margin: 0 20px;
+}
+
+.hidden-info{  
+  padding-bottom: 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.4fr;
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
+  gap: 2rem 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "mood-area mood-area mood-area"
@@ -288,6 +351,8 @@ footer{
     "link-area link-area link-area"
     ;
 }
+
+
 
 .mood-area { grid-area: mood-area; }
 
@@ -299,29 +364,194 @@ footer{
 
 .link-area { grid-area: link-area; }
 
-.more{
-  display: flex;
-  flex-direction: row;
-}
-
-.checked img{
-  transform: rotate(0.25turn);
-  width: 80px;
-}
-
-.more img{
-  height: 80px;
-  width: fit-content;
-  /* transform: rotate(0turn); */
-} 
 
 /* mood tag styling -------------------------------------------------------------------*/
-.tag{
-  color: #ededed;
-  background-color: #3E3E3E;
+.tag, .artist-tag, .mood-tag{
   width: fit-content;
   height: fit-content;
   border-radius: 1.1em/50%;
-  padding: 0.3em 1em;
-  font-size: 1.34rem;
+}
+
+.tag{
+  background-color: #252525;
+  padding: 0.3em 0.8em;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+  border-radius: 1.1rem/50%;
+  color: #cccccc;
+  margin: 1rem 0;
+}
+
+.artist-tag{
+  background-color: transparent;
+  color: #c22626;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  border-radius: 1.5rem/50%;
+  box-shadow: inset 0px 0px 0px 0.2rem #c22626;
+  font-weight: bold;
+  filter: brightness(150%) saturate(0%);
+}
+
+.artist-tag:hover{
+  filter: none;
+}
+
+/* mood tag styles adapted from https://codepen.io/attilahajzer/pen/WbbLpe */
+
+ .mood-tag{
+  background-color: #ffffff;
+  border: none;
+  overflow: hidden;
+  float: left;
+  /* filter: brightness(60%); */
+}
+
+.mood-tag label {
+    float: left; 
+    line-height: 2.5rem;
+    width: fit-content; 
+    height: fit-content;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mood-tag label span{
+  text-align: center;
+  padding: 0 1rem;
+  display: block;
+}
+
+.mood-tag input {
+  position: absolute;
+  display: none;
+}
+
+.mood-tag label input + span{
+  color: #a7a7a7;
+}
+
+.mood-tag label input + span:hover{
+  color: #686868;
+}
+
+.mood-tag label input:checked + span{
+  color: #3E3E3E;
+}
+
+/* .mood-tag input:checked + span {
+
+} */
+
+label[for="happy"] input:checked + span{
+  background-color: #9adbf1;
+}
+
+label[for="amusing"] input:checked + span{
+  background-color: #d5a680;
+}
+
+label[for="erotic"] input:checked + span{
+  background-color: #e4b2d3;
+}
+
+label[for="annoying"] input:checked + span{
+  background-color: #dfe0a9;
+}
+
+label[for="scary"] input:checked + span{
+  background-color: #dec395;
+}
+
+label[for="anxious"] input:checked + span{
+  background-color: #a4bfbc;
+}
+
+label[for="dreamy"] input:checked + span{
+  background-color: #b9ecf3;
+}
+
+label[for="calm"] input:checked + span{
+  background-color: #dcbdf4;
+}
+
+label[for="beautiful"] input:checked + span{
+  background-color: #c7f0c1;
+}
+
+label[for="energetic"] input:checked + span{
+  background-color: #df8f8f;
+}
+
+label[for="sad"] input:checked + span{
+  background-color: #b8c2e8;
+}
+
+label[for="defiant"] input:checked + span{
+  background-color: #f0b7a8;
+}
+
+label[for="triumphant"] input:checked + span{
+  background-color: #99d1b1;
+}
+
+
+/* Button Styling ---------------------------------------*/
+button, input[type="submit"]{
+  padding: 10px 15px;
+  background: #38899a;
+  margin: auto 0;
+  border-radius: 10px;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+
+  font-size: 1.25rem;
+  color: #FFFFFF;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  gap: 20px;
+}
+
+input[type="submit"]{
+  width: 15rem;
+  margin: 0 auto;
+  font-weight: bold;
+  height: 3.5rem;
+} 
+
+.more img, #fixed img{
+  height: 100%;
+  width: fit-content;
+  transform: rotate(-0.25turn);
+}
+
+#fixed{
+  position: fixed;
+  /* width: 200px;
+  height: 100px; */
+  bottom: 0px;
+  right: 0px;
+  margin: 1rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.more{
+  display: flex;
+  flex-direction: row;
+  border: none;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.checked img{
+  transform: rotate(0turn);
 }

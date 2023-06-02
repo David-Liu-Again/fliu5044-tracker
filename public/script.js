@@ -8,23 +8,48 @@ const form = document.getElementById("taskform");
 const songListElem = document.getElementById("songlist");
 const artistAddButton = document.getElementById("artistButton");
 const artistTextBox = document.getElementById("artistText");
-const artistList = document.getElementById("artistList");
+const artistListElem = document.getElementById("artist-list");
 const msgTextElem = document.getElementById("errorText");
 const formModal = document.getElementById("formModal");
 const addSongButton = document.getElementById("fixed");
 const formClose = document.getElementsByClassName("close")[0];
+const artistMsg = document.getElementById("artist-msg");
 
 // Create a new array called 'taskList'
 var songList = [];
 
+// Backend array to keep track of the artists listed in the form
+var artistList = [];
+
 // Set up "add" button for artist section of form
 artistAddButton.addEventListener("click", function(event) {
+  if (artistTextBox.value==""){
+    artistMsg.innerHTML = 'Artist name cannot be blank';
+    artistMsg.classList.add("error");
+    return;
+  }else if(artistList.indexOf(artistTextBox.value.trim()) != -1){
+    //artist name already present on form
+    artistMsg.innerHTML = 'Artist has already been added';
+    artistMsg.classList.add("error");
+    artistTextBox.value = "";
+    return;
+  } else{
+    artistMsg.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
+    artistMsg.classList.remove("error");
+  }
+
   let newArtist = document.createElement("li");
-  newArtist.innerHTML = artistTextBox.value;
-  artistList.appendChild(newArtist);
+  newArtist.innerHTML = artistTextBox.value.trim();
+  artistList.push(artistTextBox.value);
+  artistListElem.appendChild(newArtist);
+  newArtist.classList.add("artist-tag");
+  console.log(artistList);
 
   newArtist.addEventListener("click", function(event) {
     newArtist.remove(); // Make artist name delete itself when clicked
+    const index = artistList.indexOf(newArtist.innerHTML);
+    artistList.splice(index,1);
+    console.log(artistList);
   });
 
   console.log("artist " + newArtist.innerHTML +" added!");
@@ -37,11 +62,13 @@ artistAddButton.addEventListener("click", function(event) {
   // When the user clicks on the button, open the modal
   addSongButton.onclick = function() {
     formModal.style.display = "block";
+    
   }
 
   // When the user clicks on <span> (x), close the modal
   formClose.onclick = function() {
     formModal.style.display = "none";
+    form.reset();
   }
 
   // When the user clicks anywhere outside of the modal, close it
@@ -57,11 +84,13 @@ artistAddButton.addEventListener("click", function(event) {
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  if (artistList.innerHTML === ''){
+  if (artistListElem.innerHTML === ''){
     msgTextElem.innerHTML = 'Please add at least 1 artist name';
+    msgTextElem.classList.add("error");
     return;
   } else{
     msgTextElem.innerHTML = "";
+    msgTextElem.classList.remove("error");
   }
 
   console.log(form.elements);
@@ -106,12 +135,12 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
   }
 
   // add artists
-  artistList.childNodes.forEach((child) =>{
+  artistListElem.childNodes.forEach((child) =>{
     // console.log(child.innerHTML);
     song.artists.push(child.innerHTML);
   });
 
-  artistList.innerHTML = "";
+  artistListElem.innerHTML = "";
   // Add the object to the taskList array
   songList.push(song);
   // Save to local storage
@@ -196,7 +225,7 @@ function generateBasicInfo(song, item){
   // I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
   basicInfo.innerHTML = 
   `<a href="${song.link}" target="_blank" rel="noopener noreferrer">
-    <img src="${imagePath}" alt="${song.genre + " Thumbnail"}">
+    <img class="thumbnail" src="${imagePath}" alt="${song.genre + " Thumbnail"}">
   </a>
 
   <div class="basic-content">
@@ -208,9 +237,7 @@ function generateBasicInfo(song, item){
           <p>${song.artists.toString()}</p>
         </a>
       </div>
-      <div class='delete'>
-        <img src=${uiImages["bin"]} alt="delete button">
-      </div>
+      <img  class='delete' src=${uiImages["bin"]} alt="delete button">
     </section>
 
     <section class="bottom">
@@ -222,7 +249,7 @@ function generateBasicInfo(song, item){
       <div class="tags summarised">
       </div>
     </section>
-  </div>`
+    </div>`
 
   // Listen for when the delete button is clicked
   let deleteButton = basicInfo.querySelector(".delete");
