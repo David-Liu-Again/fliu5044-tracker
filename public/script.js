@@ -4,16 +4,16 @@ import uiImages from './images/ui/*.svg';
 console.log(uiImages);
 
 // Setting up variables for our HTML elements using DOM selection
-const form = document.getElementById("taskform");
+const form = document.getElementById("songform");
 const songListElem = document.getElementById("songlist");
 const artistAddButton = document.getElementById("artistButton");
 const artistTextBox = document.getElementById("artistText");
 const artistListElem = document.getElementById("artist-list");
-const msgTextElem = document.getElementById("errorText");
+const msgTextElem = document.getElementById("error-text");
+const msgArtistElem = document.getElementById("artist-msg");
 const formModal = document.getElementById("formModal");
 const addSongButton = document.getElementById("fixed");
 const formClose = document.getElementsByClassName("close")[0];
-const artistMsg = document.getElementById("artist-msg");
 
 // Create a new array called 'taskList'
 var songList = [];
@@ -24,18 +24,18 @@ var artistList = [];
 // Set up "add" button for artist section of form
 artistAddButton.addEventListener("click", function(event) {
   if (artistTextBox.value==""){
-    artistMsg.innerHTML = 'Artist name cannot be blank';
-    artistMsg.classList.add("error");
+    msgArtistElem.innerHTML = 'Artist name cannot be blank';
+    msgArtistElem.classList.add("error");
     return;
   }else if(artistList.indexOf(artistTextBox.value.trim()) != -1){
     //artist name already present on form
-    artistMsg.innerHTML = 'Artist has already been added';
-    artistMsg.classList.add("error");
+    msgArtistElem.innerHTML = 'Artist has already been added';
+    msgArtistElem.classList.add("error");
     artistTextBox.value = "";
     return;
   } else{
-    artistMsg.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
-    artistMsg.classList.remove("error");
+    msgArtistElem.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
+    msgArtistElem.classList.remove("error");
   }
 
   let newArtist = document.createElement("li");
@@ -62,19 +62,20 @@ artistAddButton.addEventListener("click", function(event) {
   // When the user clicks on the button, open the modal
   addSongButton.onclick = function() {
     formModal.style.display = "block";
-    
+    document.querySelector(".modal-content").scrollIntoView();
   }
 
   // When the user clicks on <span> (x), close the modal
   formClose.onclick = function() {
     formModal.style.display = "none";
-    form.reset();
+    resetForm();
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == formModal) {
       formModal.style.display = "none";
+      resetForm();
     }
   }
 }
@@ -117,7 +118,21 @@ form.addEventListener("submit", function(event) {
 
   msgTextElem.innerHTML = `New song added!`;
   console.log(songList);
+
+  // Clear the value of the input once the task has been added to the page
+  resetForm();
 })
+
+function resetForm(){
+  //function resets the form on close, including removing error messages
+  form.reset();
+  msgTextElem.innerHTML = "";
+  msgArtistElem.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
+  msgTextElem.classList.remove("error");
+  msgArtistElem.classList.remove("error");
+  artistListElem.innerHTML="";
+  artistList = [];
+}
 
 // Create and display new task object, directly passing in the input parameters
 function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
@@ -190,19 +205,25 @@ function displaySong(song) {
   // Add the song to the song List element
   songListElem.appendChild(item);
 
-  // Clear the value of the input once the task has been added to the page
-  form.reset();
+
 }
 
 function appendMoods(tagsElem, song){
   song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
-    // Limit to two moods for summarised view
-    if ((moodArrayIndex > 1) && (tagsElem.className.includes("summarised"))){
+    // summarised boolean determines whether we are displaying mood tags for the collapsed view
+    var summarised = tagsElem.className.includes("summarised");
+
+    if ((moodArrayIndex > 1) && summarised){
+      // Limit to two moods for summarised view
       console.log("Summarised moods for " + song.id);
       return;
     }
+
     let moodTag = document.createElement("p");
     moodTag.className = "tag";
+    if (!summarised){
+      moodTag.classList.add(moodArrayElement);
+    }
     moodTag.textContent = moodArrayElement;
     tagsElem.appendChild(moodTag);
   });
@@ -233,6 +254,7 @@ function generateBasicInfo(song, item){
       <div class="name-artist">
         <a href="${song.link}" target="_blank" rel="noopener noreferrer">
           <strong>${song.title}</strong>
+          <img src=${uiImages["link"]} alt="link icon">
           <br>
           <p>${song.artists.toString()}</p>
         </a>
@@ -286,10 +308,6 @@ function generateHiddenInfo(song, item){
       <div class="tags">
       </div>
     </div>
-    <div class="id-area">
-      <strong>ID</strong>
-      <p>${song.id}</p>
-    </div>
     <div class="date-area">
       <strong>Date Added</strong>
       <p>${song.date.toString().slice(0, 10)}</p>
@@ -297,12 +315,6 @@ function generateHiddenInfo(song, item){
     <div class="year-area">
       <strong>Year</strong>
       <p>${song.year}</p>
-    </div>
-    <div class="link-area">
-      <strong>Link</strong>
-      <a href="${song.link}" target="_blank" rel="noopener noreferrer">
-        <p>${song.link}</p>
-      </a>
     </div>
   `
   //Add mood tags to the DOM

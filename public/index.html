@@ -37,7 +37,7 @@
         
         <span class="close">&times;</span>
 
-        <form id="taskform">
+        <form id="songform">
           <h2><strong>Add New Song</strong></h2>
           <div class="form-row">
             <label for="songTitle">What is your song's title?</label>
@@ -64,38 +64,42 @@
             <input type="text" name="songLink" id="songLink" required="true"  placeholder="e.g. www.youtube.com/...."/>
           </div>
           
-          <div class="form-row">
-            <label for="songYear">What year was your song released?</label>
-            <input type="number" name="songYear" id="songYear" required="true" value="2000" min=1900 max="2100"/>
+          <div id="year-genre">
+
+            <div class="form-row">
+              <label for="songYear">What year was your song released?</label>
+              <input type="number" name="songYear" id="songYear" required="true" value="2000" min=1900 max="2100"/>
+            </div>
+            <div class="form-row">
+              <label for="songGenre">What genre is your song?</label>
+              <select id="songGenre" name="songGenre" required="true" >
+                <option value="" disabled selected>Select one</option>
+                <option value="Alternative">Alternative</option>
+                <option value="Country">Country</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Experimental">Experimental</option>
+                <option value="HipHop">HipHop</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+                <option value="Pop">Pop</option>
+                <option value="R&B">R&B</option>
+                <option value="Rock">Rock</option>
+              </select>
+            </div>
           </div>
+            
+
           
-          <div class="form-row">
-            <label for="songGenre">What genre is your song?</label>
-            <select id="songGenre" name="songGenre" required="true" >
-              <option value="">Select one</option>
-              <option value="Alternative">Alternative</option>
-              <option value="Country">Country</option>
-              <option value="Electronic">Electronic</option>
-              <option value="Experimental">Experimental</option>
-              <option value="HipHop">HipHop</option>
-              <option value="Jazz">Jazz</option>
-              <option value="Metal">Metal</option>
-              <option value="Pop">Pop</option>
-              <option value="R&B">R&B</option>
-              <option value="Rock">Rock</option>
-            </select>
-          </div>
-          
-          <div class="form-row">
-            <p>How would you describe your song?</p>
-            <ul id="mood-form">
-              <li class="mood-tag">
-                <label for="happy">
-                  <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
+            <div class="form-row">
+              <p>How would you describe your song?</p>
+              <ul id="mood-form">
+                <li class="mood-tag">
+                  <label for="happy">
+                    <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
                   <span>Happy</span>
                 </label>
               </li>
-
+              
               <li class="mood-tag">
                 <label for="defiant">
                   <input type="checkbox" id="defiant" name="defiant" value="defiant" class="mood">
@@ -183,7 +187,7 @@
             </ul>
           </div>
           
-          <p id="errorText"></p>
+          <p id="error-text"></p>
           <div class="form-row">
             <input type="submit">
           </div>
@@ -196,7 +200,7 @@
   <footer>
     <p>Copyright 2023</p>
   </footer>
-  
+
   <script  type="module" src="script.js"></script>
 </script>
 </body>
