@@ -73,7 +73,7 @@ artistAddButton.addEventListener("click", function(event) {
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
-    if (event.target == formModal) {
+    if ((event.target == formModal) && (screen.width > 900)) {
       formModal.style.display = "none";
       resetForm();
     }

@@ -682,6 +682,90 @@ input[type="submit"]{
 
   .year-area, .date-area{
     line-height: 1rem;
+    
+  }
+
+  #fixed p{
+    display: none;
+  }
+  
+  #fixed{
+    height: 4.5rem;
+    padding: 0.6rem;
+  }
+
+  footer{
+    font-size: 1.5em;
+  }
+
+  .modal-content{
+    width: 90%;
+    padding: 0.6rem 1rem;
+  }
+
+  form{
+    gap:2rem;
+    font-size: 1.2rem;
+  }
+
+  #mood-form{
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .mood-tag label {
+    line-height: 2.8rem;
+    font-size: 1.1em;
+  }
+
+  .mood-tag{
+    border-radius: 1.7rem/50%;
     /* border: 2px solid red; */
+  }
+  
+  footer, #artist-msg{
+    color: #6c6c6c;
+  }
+
+  #artist-adder{
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #year-genre{
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  #artist-adder button, input[type="submit"]{
+    height: fit-content;
+  }
+  
+  #artist-adder button{
+    width: 15rem;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+  }
+  input[type="submit"]{
+    font-size: 2rem;
+    width: auto;
+    padding: 0.4rem 0;
+    margin: 0 3rem;
+  }
+
+  .artist-tag{
+    filter: brightness(250%) saturate(0%);
+  }
+
+  .form-row > input,
+  .form-row > select,
+  #artist-adder > input {
+    padding: 1rem;
+    font-size: 1.2em;
+  }
+
+  #artist-list{
+    gap: 2rem;
   }
 }
