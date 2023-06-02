@@ -245,33 +245,32 @@ function generateBasicInfo(song, item){
   // Thumbnail link opens in new tab
   // I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
   basicInfo.innerHTML = 
-  `<a href="${song.link}" target="_blank" rel="noopener noreferrer">
-    <img class="thumbnail" src="${imagePath}" alt="${song.genre + " Thumbnail"}">
-  </a>
+  `<div class="thumbnail-area">
+    <a href="${song.link}" target="_blank" rel="noopener noreferrer">
+      <img class="thumbnail" src="${imagePath}" alt="${song.genre + " Thumbnail"}">
+    </a>
+  </div>
+  <section class="top">
+    <div class="name-artist">
+      <a href="${song.link}" target="_blank" rel="noopener noreferrer">
+        <strong>${song.title}</strong>
+        <img src=${uiImages["link"]} alt="link icon">
+        <br>
+        <p>${song.artists.toString()}</p>
+      </a>
+    </div>
+    <img  class='delete' src=${uiImages["bin"]} alt="delete button">
+  </section>
 
-  <div class="basic-content">
-    <section class="top">
-      <div class="name-artist">
-        <a href="${song.link}" target="_blank" rel="noopener noreferrer">
-          <strong>${song.title}</strong>
-          <img src=${uiImages["link"]} alt="link icon">
-          <br>
-          <p>${song.artists.toString()}</p>
-        </a>
-      </div>
-      <img  class='delete' src=${uiImages["bin"]} alt="delete button">
-    </section>
+  <section class="bottom">
+    <button class="more">
+      <img src = "${uiImages["triangle"]}">
+      <p>Show More</p>
+    </button>
 
-    <section class="bottom">
-      <button class="more">
-        <img src = "${uiImages["triangle"]}">
-        <p>More Info</p>
-      </button>
-
-      <div class="tags summarised">
-      </div>
-    </section>
-    </div>`
+    <div class="tags summarised">
+    </div>
+  </section>`
 
   // Listen for when the delete button is clicked
   let deleteButton = basicInfo.querySelector(".delete");

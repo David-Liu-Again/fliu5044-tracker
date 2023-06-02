@@ -259,24 +259,22 @@ form {
   filter: brightness(100%);
 }
 
-.basic-content, .basic-info{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.basic-info {  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 4.5fr 5.5fr;
+  gap: 0px 1rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "thumbnail-area top"
+    "thumbnail-area bottom";
 }
 
-.basic-content{
-  height: 10rem;
-  width: 100%;
-  flex-direction: column;
-}
+.thumbnail-area { grid-area: thumbnail-area; }
 
-.basic-info{
-  width: 100%;
-  height: 100%;
-  gap: 20px;
-  flex-direction: row;
-}
+.top { grid-area: top; }
+
+.bottom { grid-area: bottom; }
+
 
 
 
@@ -315,7 +313,6 @@ form {
 
 .delete{
   height: 2rem;
-  
   margin: auto 0;
 }
 
@@ -361,7 +358,7 @@ form {
   font-size: 0.8rem;
   line-height: 1.5rem;
   width: 100%;
-  margin: 0 20px;
+  margin: 0 1rem;
 }
 
 .hidden-info{  
@@ -600,18 +597,91 @@ input[type="submit"]{
 
 @media screen and (max-width: 900px){
   .hidden-info{
-    font-size: 1.1em;
+    font-size: 1em;
   }
 
   .thumbnail{
-    height: 5rem;
+    width: 100%;
+    height: auto;
+  }
+
+  .top{
+    height: 100%;
+    border: none;
   }
   
   html, body{
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .song-card{
-    margin: 1rem 2rem;
+    margin: 1rem 1rem;
+    padding: 0.75rem 0.5rem;
+    gap: 1rem;
+    /* padding: 0; */
+  }
+
+  .basic-info {  
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 3.5fr;
+    grid-template-rows: 7rem 2.5rem;
+    gap: 1rem 1rem;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "thumbnail-area top"
+      "bottom bottom";
+
+    /* border: 2px solid blue; */
+  }
+
+  .top, .bottom{
+    display: flex;
+    align-items: center;
+  }
+  
+  .bottom{
+    padding: 0;
+    height: 100%;
+  }
+  
+  .bottom > *{
+    padding: 0;
+  }
+  
+  .bottom button{
+    height: 100%;
+  
+    gap: 0.5rem;
+  }
+
+  .bottom button img {
+    height: 1em;
+  }
+
+  .delete{
+    height: 3.5em;
+  }
+
+  .name-artist{
+    font-size: 1.1em;
+  }
+  
+  .name-artist strong{
+    font-size: 1.5em;
+  }
+
+  .hidden-info{
+    font-size: 1.1em;
+    margin: 0;
+    gap: 1rem 0;
+    padding: 0;
+    height: fit-content;
+    grid-template-rows: 1fr 0.1fr;
+  }
+
+  .year-area, .date-area{
+    line-height: 1rem;
+    /* border: 2px solid red; */
   }
 }
