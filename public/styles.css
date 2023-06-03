@@ -114,9 +114,23 @@ form {
   padding: .5em;
 }
 
-.form-row > label, .form-row p, #error-text {
+.form-row > label, .form-row p, #error-text, form p {
   display: block;
   color: white;
+}
+
+form p{
+  width: 100%;
+  padding: .5em 1em;
+
+  color: #c22626;
+  font-size: 1.1em;
+}
+
+label .red{
+  color: #c22626;
+  font-weight: bold;
+  padding: 0 0.2em;
 }
 
 .form-row > input,
@@ -227,6 +241,12 @@ form {
 #songlist{
   width: 100%;
   margin: 2rem 0;
+}
+
+li #blank-msg{
+  width: 100%;
+  color: white;
+  text-align: center;
 }
 
 /*song card styling -------------------------------------------------*/
@@ -553,6 +573,12 @@ button, input[type="submit"]{
   justify-content: center;
   height: 3rem;
   gap: 20px;
+
+  filter: brightness(80%);
+}
+
+button:hover, button:focus, input[type="submit"]:hover, input[type="submit"]:focus{
+  filter: none;
 }
 
 input[type="submit"]{
@@ -690,8 +716,10 @@ input[type="submit"]{
   }
   
   #fixed{
-    height: 4.5rem;
+    height: 6rem;
     padding: 0.6rem;
+    margin: 2rem;
+    filter: none;
   }
 
   footer{

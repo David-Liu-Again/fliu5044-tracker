@@ -1,7 +1,6 @@
-// importing images
+// Importing images so that they can be added to the DOM where necessary
 import thumbnailImages from './images/thumbnails/*.png';
 import uiImages from './images/ui/*.svg';
-console.log(uiImages);
 
 // Setting up variables for our HTML elements using DOM selection
 const form = document.getElementById("songform");
@@ -14,91 +13,80 @@ const msgArtistElem = document.getElementById("artist-msg");
 const formModal = document.getElementById("formModal");
 const addSongButton = document.getElementById("fixed");
 const formClose = document.getElementsByClassName("close")[0];
+const noSongElem= document.getElementById("blank-msg");
 
-// Create a new array called 'taskList'
+
+// Backend array to store all added songs
 var songList = [];
 
-// Backend array to keep track of the artists listed in the form
+// Backend array to keep track of the artists currently listed in the form
 var artistList = [];
 
-// Set up "add" button for artist section of form
+// CODE FOR THE ARTIST SECTION OF FORM BEGINS HERE---------------------------------------------------
+// Set up the "add" button for the artist section of the form
 artistAddButton.addEventListener("click", function(event) {
+
   if (artistTextBox.value==""){
+    // Blank input for an artist is not accepted 
     msgArtistElem.innerHTML = 'Artist name cannot be blank';
     msgArtistElem.classList.add("error");
-    return;
+    return; //Nothing is added
+
   }else if(artistList.indexOf(artistTextBox.value.trim()) != -1){
-    //artist name already present on form
+    //If an artist name already present on form it is not accepted
     msgArtistElem.innerHTML = 'Artist has already been added';
     msgArtistElem.classList.add("error");
     artistTextBox.value = "";
-    return;
+    return; //Nothing is added
+
   } else{
+    // The default instructions become visible again once input is entered correctly
     msgArtistElem.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
     msgArtistElem.classList.remove("error");
   }
 
+  // below code executes only if input is valid
+
+  // Create a DOM element representing a new artist and display it
   let newArtist = document.createElement("li");
   newArtist.innerHTML = artistTextBox.value.trim();
   artistList.push(artistTextBox.value);
   artistListElem.appendChild(newArtist);
   newArtist.classList.add("artist-tag");
-  console.log(artistList);
 
   newArtist.addEventListener("click", function(event) {
-    newArtist.remove(); // Make artist name delete itself when clicked
+    // This function allows the user to delete an displayed artist name if it is clicked
+    newArtist.remove(); 
     const index = artistList.indexOf(newArtist.innerHTML);
     artistList.splice(index,1);
     console.log(artistList);
   });
 
-  console.log("artist " + newArtist.innerHTML +" added!");
+  // Reset the text box input
   artistTextBox.value = "";
 });
 
-{
-  // Modal code from  https://www.w3schools.com/howto/howto_css_modals.asp --------
-
-  // When the user clicks on the button, open the modal
-  addSongButton.onclick = function() {
-    formModal.style.display = "block";
-    document.querySelector(".modal-content").scrollIntoView();
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  formClose.onclick = function() {
-    formModal.style.display = "none";
-    resetForm();
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if ((event.target == formModal) && (screen.width > 900)) {
-      formModal.style.display = "none";
-      resetForm();
-    }
-  }
-}
-
-
+// CODE FOR THE FORM SUBMISSION FUNCTIONALITY BEGINS HERE---------------------------------
 // Set up submit button for Form 
 form.addEventListener("submit", function(event) {
+  // disable default functionality of the form submit
   event.preventDefault();
 
-  if (artistListElem.innerHTML === ''){
+  if (!artistListElem.hasChildNodes()){
+    // If any form field is empty the form will not submit
+    // Since the artist section of the form is custom, we have to perform input verification manually
     msgTextElem.innerHTML = 'Please add at least 1 artist name';
     msgTextElem.classList.add("error");
     return;
   } else{
     msgTextElem.innerHTML = "";
     msgTextElem.classList.remove("error");
+    console.log(artistListElem.childNodes);
   }
 
-  console.log(form.elements);
-
   moodArray = [];
-
   Array.from(form.elements).forEach((input) => {
+    // Store all the selected moods for the new song inside the above array
     if (input.className === "mood"){
       if (input.checked === true){
         moodArray.push(input.value);
@@ -106,8 +94,7 @@ form.addEventListener("submit", function(event) {
     }
   });
 
-  console.log("mood array: " + moodArray);
-
+  //Create backend record of song and display it to user
   addSong(
     form.elements.songTitle.value,
     form.elements.songLink.value,
@@ -116,27 +103,54 @@ form.addEventListener("submit", function(event) {
     moodArray
   );
 
+  // Give confirmaton feedback to user
   msgTextElem.innerHTML = `New song added!`;
-  console.log(songList);
 
-  // Clear the value of the input once the task has been added to the page
+  // Clear the value of the inputs once the task has been added to the page
   resetForm();
 })
 
 function resetForm(){
-  //function resets the form on close, including removing error messages
+  //This function resets the form on close, including removing error messages
   form.reset();
   msgTextElem.innerHTML = "";
   msgArtistElem.innerHTML = 'Please add at least 1 artist name. Click to delete an artist.';
   msgTextElem.classList.remove("error");
   msgArtistElem.classList.remove("error");
-  artistListElem.innerHTML="";
+  //remove all displayed arstist names from form
+  while (artistListElem.hasChildNodes()){
+    artistListElem.removeChild(artistListElem.firstChild);
+  }
   artistList = [];
 }
 
-// Create and display new task object, directly passing in the input parameters
+// CODE FOR THE FORM'S POPUP FUNCTIONALITY BEGINS HERE---------------------------------
+// Modal/pop-up code from  https://www.w3schools.com/howto/howto_css_modals.asp --------
+
+// When the user clicks on the "Add SOng" button in the bottom right, open the modal
+addSongButton.onclick = function() {
+  formModal.style.display = "block";
+  document.querySelector(".modal-content").scrollIntoView();
+}
+
+// When the user clicks on the "x" button in the popup, close the modal
+formClose.onclick = function() {
+  formModal.style.display = "none";
+  resetForm();
+}
+
+// When the user clicks anywhere outside of the pop-up, close it
+window.onclick = function(event) {
+  if ((event.target == formModal) && (screen.width > 900)) {
+    // This function is disabled for mobile to prevent users accidentally closing the form
+    formModal.style.display = "none";
+    resetForm();
+  }
+}
+
+// CODE FOR CREATING AND DISPLAYING SONGS BEGINS HERE---------------------------------
 function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
-  
+  // Create and display new song object, directly passing in the input parameters
   let song = {
     title: newTitle,
     link: newLink,
@@ -149,101 +163,100 @@ function addSong(newTitle, newLink, newYear, newGenre,moodArray) {
     moods: moodArray
   }
 
-  // add artists
+  // add artists directly from the DOM element
   artistListElem.childNodes.forEach((child) =>{
-    // console.log(child.innerHTML);
-    song.artists.push(child.innerHTML);
+    if (child.innerHTML != null){
+      console.log(child);
+      song.artists.push(child.innerHTML);
+    }
   });
 
-  artistListElem.innerHTML = "";
-  // Add the object to the taskList array
+  // Add the object to the array
   songList.push(song);
+
   // Save to local storage
   localStorage.setItem('savedSongs', JSON.stringify(songList));
-  // Display task to user
+  
+  // Display song to user
   displaySong(song);
+
+  checkBlank();
 }
 
-// Add New Task object to DOM
 function displaySong(song) {
+  // Add New Song object to DOM
+  //(display information about it to the user)
+
+  // setup DOM element
   let item = document.createElement("li");
   item.setAttribute("data-id", song.id);
   item.setAttribute("class","song-card");
+
+  // Displayed song elements have a collapsed/truncated view containing less information and a
+  // expanded view containing more informaton
   
-  //Create the top section of the list element
+  // Create the basic info section of the list element
+  // This section is visible when song element is in collapsed view
   let basicInfo = generateBasicInfo(song, item);
   item.appendChild(basicInfo);
   
-  //Create the bottom section of the list element
+  // Create the expanded info section of the list element
+  // This section is visible when song element is in expanded view
   let hiddenInfo= generateHiddenInfo(song, item);
   item.appendChild(hiddenInfo);
   
-
-  // Listen for when the more-info button is clicked
-  let moreButton = item.querySelector(".more");
-  let moreButtonText = moreButton.querySelector("p");
-  // console.log(moreButtonText);
+  // Setting up variables for our HTML elements to enable user to expand/collapse song element
+  let moreInfoButton = item.querySelector(".more");
+  let moreButtonText = moreInfoButton.querySelector("p");
+  // User only sees up to 2 moods associated with a song in collapsed view
+  // This summarised moods view corresponds to the variable on the below line
   let summarisedMoods = basicInfo.querySelector(".summarised");
-  console.log(summarisedMoods);
+  
+  
+  moreInfoButton.addEventListener("click", function(event) {
+    // Listen for when the more-info button is clicked
 
-  moreButton.addEventListener("click", function(event) {
+    // This toggles the expands/collapses the song element
     hiddenInfo.hidden = !hiddenInfo.hidden;
+
+    // We hide the summarised moods as there is a more comprehensive view
+    // of the song's moods in the (un)hidden info of the song element
     summarisedMoods.hidden = !hiddenInfo.hidden;
+
+    // Alter appearance of "More Info" button, depending on whether song element is expanded or truncated
     if (!hiddenInfo.hidden){
       // Content is not hidden
-      moreButton.classList.add("checked");
+      moreInfoButton.classList.add("checked");
       moreButtonText.innerHTML = "Show Less";
     } else {
       // Content is hidden
-      moreButton.classList.remove("checked");
+      moreInfoButton.classList.remove("checked");
       moreButtonText.innerHTML = "Show More";
     }
-    console.log(hiddenInfo.hidden);
   });
 
-
-  // Add the song to the song List element
+  // Add the song to the songlist element to actually display it
   songListElem.appendChild(item);
-
-
-}
-
-function appendMoods(tagsElem, song){
-  song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
-    // summarised boolean determines whether we are displaying mood tags for the collapsed view
-    var summarised = tagsElem.className.includes("summarised");
-
-    if ((moodArrayIndex > 1) && summarised){
-      // Limit to two moods for summarised view
-      console.log("Summarised moods for " + song.id);
-      return;
-    }
-
-    let moodTag = document.createElement("p");
-    moodTag.className = "tag";
-    if (!summarised){
-      moodTag.classList.add(moodArrayElement);
-    }
-    moodTag.textContent = moodArrayElement;
-    tagsElem.appendChild(moodTag);
-  });
 }
 
 function generateBasicInfo(song, item){
+  // function called in displaySong()
   // This functions creates all the unhidden DOM elements in a song list item
+  // The basic info section is visible when song element is in collapsed view
   let basicInfo = document.createElement("section");
   basicInfo.className = "basic-info";
 
-  // Fetch the thumbnail URL and add it to the DOM
+  // Fetch the thumbnail genre image URL and add image to the DOM
   let imagePath = null;
   imagePath = thumbnailImages[song.genre];
   if (imagePath == null){
+    // In case there is a problem fetching the URL
     imagePath = './images/thumbnails/Error.png';
     console.log('Thumbnail error');
   }
 
-  // Thumbnail link opens in new tab
-  // I followed this article : https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
+  // Clicking on the thumbnail, song title or artist name(s) opens the song's link in new tab
+  // I followed this article for guidance: https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/
   basicInfo.innerHTML = 
   `<div class="thumbnail-area">
     <a href="${song.link}" target="_blank" rel="noopener noreferrer">
@@ -275,19 +288,26 @@ function generateBasicInfo(song, item){
   // Listen for when the delete button is clicked
   let deleteButton = basicInfo.querySelector(".delete");
   deleteButton.addEventListener("click", function(event) {
+
+    // Remove song from backend array
     songList.forEach(function(songArrayElement, songArrayIndex) {
       if (songArrayElement.id == song.id) {
         songList.splice(songArrayIndex, 1)
       }
     });
+
     // Make sure the deletion worked by logging out the whole array
     console.log(songList);
+
+    // Update local storage to reflect deletion
     localStorage.setItem('savedSongs', JSON.stringify(songList));
-    item.remove(); // Remove the task item from the page when button clicked
+    item.remove(); // Remove the song item from the page when button clicked
     // Because we used 'let' to define the item, this will always delete the right element
+
+    checkBlank();
   });
 
-  //Add mood tags to the DOM
+  //Add mood tag elements to the basic info div
   let tags = basicInfo.querySelector(".tags");
   appendMoods(tags, song);
 
@@ -295,6 +315,8 @@ function generateBasicInfo(song, item){
 }
 
 function generateHiddenInfo(song, item){
+  // function called in displaySong()
+  // This functions creates all the hidden DOM elements in a song list item
   let hiddenInfoContainer= document.createElement("section");
   hiddenInfoContainer.className = "hidden-info";
   hiddenInfoContainer.hidden = true;
@@ -318,26 +340,58 @@ function generateHiddenInfo(song, item){
   `
   //Add mood tags to the DOM
   let tags = hiddenInfoContainer.querySelector(".tags");
-  // console.log(tags);
   appendMoods(tags, song);
 
   return hiddenInfoContainer;
 }
 
-//#region My Region
-// Fetch previous tasks from Local Storage
-let savedSongs = JSON.parse(localStorage.getItem('savedSongs'));  
-// Check if the item doesn't exist in localStorage by seeing if it is null
-if (savedSongs !== null){
+function appendMoods(tagsElem, song){
+  // function called in generateBasicInfo() and generateHiddenInfo()
+  // This function creates DOM elements to represent moods associated with a song
 
-  // Loop through the countries and add their names as list items to the page
-  savedSongs.forEach((task) =>{
-    songList.push(task);
-    displaySong(task);
+  song.moods.forEach(function(moodArrayElement, moodArrayIndex) {
+    // summarised boolean determines whether we are displaying mood tags for the collapsed or expanded view of a song
+    var summarised = tagsElem.className.includes("summarised");
+
+    if ((moodArrayIndex > 1) && summarised){
+      // Limit to two moods for summarised view
+      console.log("Summarised moods for " + song.id);
+      return;
+    }
+
+    let moodTag = document.createElement("p");
+    moodTag.className = "tag";
+    if (!summarised){
+      //Moods are only coloured in expanded view
+      moodTag.classList.add(moodArrayElement);
+    }
+
+    moodTag.textContent = moodArrayElement;
+    tagsElem.appendChild(moodTag);
   });
 }
-//#region
 
+// CODE FOR LOADING SONGS FROM LOCAL STORAGE BEGINS HERE---------------------------------
+let savedSongs = JSON.parse(localStorage.getItem('savedSongs'));  
+if (savedSongs !== null){
+  // Loop through the songs and add them to the DOM and backend array
+  savedSongs.forEach((song) =>{
+    songList.push(song);
+    displaySong(song);
+  });
+}
+checkBlank();
+
+// MISC CODE BEGINS HERE---------------------------------
+
+function checkBlank(){
+  // display a message to user if there are no songs visible
+  if (songList.length == 0){
+    noSongElem.innerHTML = "No Songs have been added yet :(";
+  } else{
+    noSongElem.innerHTML = "";
+  }
+}
 
 // Log the array to the console.
 console.log(songList);

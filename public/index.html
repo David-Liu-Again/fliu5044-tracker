@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Task Tracker</title>
+  <title>My Song History</title>
   <link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -18,60 +18,82 @@
   
   <main>
     <button id="fixed">
+        <!-- This is the add song button that hovers in the bottom right -->
         <img src="images/ui/plus.svg">
         <p>Add New Song</p>
     </button>
     
-    <!-- list view -->
     <ul id="songlist">
+      <!-- Any song that the user adds appears as an item in this list -->
+      <!-- The list is initially empty but is populated by displaySong() in script.js -->
+      <li><h2 id="blank-msg"></h2></li>
     </ul>
     
-    
-
-
-    <!-- The Form Modal -->
-    <!-- modal code adapted from https://www.w3schools.com/howto/howto_css_modals.asp -->
     <div id="formModal" class="modal">
-      <!-- Modal content -->
+      <!-- the formModal div contains the "Add Song" form pop-up and black overlay that dims the background when pop-up is visible -->
+      <!-- modal code adapted from https://www.w3schools.com/howto/howto_css_modals.asp -->
       <div class="modal-content">
         
-        <span class="close">&times;</span>
+        <!-- Close button for the form -->
+        <span class="close">
+          &times;
+        </span>
 
+        
         <form id="songform">
+          <!-- The "Add Song" form itself -->
+
           <h2><strong>Add New Song</strong></h2>
+
+          <p>* Indicates required question</p>
+          
           <div class="form-row">
-            <label for="songTitle">What is your song's title?</label>
+            <!-- Each form row consists of an instruction and input field -->
+            <label for="songTitle">What is your song's title?<span class="red">*</span></label>
             <input type="text" name="songTitle" id="songTitle" required="true"  placeholder="e.g. Happy Birthday"/>
           </div>
           
           <div class="form-row">
-            <label for="artistText">Who contributed to the song?</label>
-            
+            <label for="artistText">Who contributed to the song?<span class="red">*</span></label>
+
+            <!-- Since users can add multiple artists to a single song, additional functionality was needed -->
             <div id="artist-adder">
+              <!-- 1. Users first enter an artist name in the below textbox -->
               <input type="text" name="artistText" id="artistText"  placeholder="e.g. John Lennon"/>
-              
+
+              <!-- 2. Users then click on the button to add an artist to an on-screen list (artist-list) -->
               <button id="artistButton" type="button">
                 Add Artist
               </button>
             </div>
           </div>
           
-          <p id="artist-msg">Please add at least 1 artist name. Click to delete an artist.</p>
-          <ul id="artist-list"></ul>
+          <p id="artist-msg">
+            <!-- error messages related to entering an artist name appear in this p -->
+            Please add at least 1 artist name. Click to delete an artist.
+          </p>
+          
+          <!-- artists inputted by user appear here -->
+          <!-- users can delete an artist by clicking a name once it appears here -->
+          <ul id="artist-list">
+          </ul>
           
           <div class="form-row">
-            <label for="songLink">Link to stream song:</label>
+            <label for="songLink">Link to stream song<span class="red">*</span></label>
             <input type="text" name="songLink" id="songLink" required="true"  placeholder="e.g. www.youtube.com/...."/>
           </div>
           
           <div id="year-genre">
+            <!-- the genre and year input appear on the same row due to their short width -->
 
             <div class="form-row">
-              <label for="songYear">What year was your song released?</label>
+              <label for="songYear">What year was your song released?<span class="red">*</span></label>
               <input type="number" name="songYear" id="songYear" required="true" value="2000" min=1900 max="2100"/>
             </div>
+
             <div class="form-row">
-              <label for="songGenre">What genre is your song?</label>
+              <label for="songGenre">What genre is your song?<span class="red">*</span></label>
+              <!-- genre is selected from a dropdown -->
               <select id="songGenre" name="songGenre" required="true" >
                 <option value="" disabled selected>Select one</option>
                 <option value="Alternative">Alternative</option>
@@ -86,13 +108,14 @@
                 <option value="Rock">Rock</option>
               </select>
             </div>
+
           </div>
             
-
-          
             <div class="form-row">
               <p>How would you describe your song?</p>
+              
               <ul id="mood-form">
+                <!-- Users can select associated moods for a song by ticking checkboxes from a below list -->
                 <li class="mood-tag">
                   <label for="happy">
                     <input type="checkbox" id="happy" name="happy" value="happy" class="mood">
@@ -187,7 +210,9 @@
             </ul>
           </div>
           
-          <p id="error-text"></p>
+          <p id="error-text">
+            <!-- Error and feedback messages related to form submission will appear here -->
+          </p>
           <div class="form-row">
             <input type="submit">
           </div>
