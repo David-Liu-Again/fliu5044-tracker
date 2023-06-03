@@ -95,6 +95,12 @@ Allowing the users to change the details of existing songs after they have been 
   + Unsplash. (n.d.). Unsplash. Unsplash. Retrieved June 3, 2023, from http://unsplash.com 
 +  Pellennec, S. (2011). Film texture - grain explosion [Image]. https:// www.deviantart.com/stephanepellennec/art/Film-texture-grainexplosion-194364262
 +  flaticon. (n.d.). Exit Top Right free icon. https://www.flaticon.com/free-icon/exit-top-right_82118?term=link&#38;page=1&#38;position=19&#38;origin=tag&#38;related_id=82118
++  Giron, J. (1993). Kurt Cobain. https://www.npr.org/sections/therecord/2014/04/05/299197941/weve-never-stopped-thinking-about-kurt-cobain
++  Moon Armada. (n.d.). Head of Baby Doll with Wires coming out of it. https://www.musicradar.com/news/10-weirdest-musical-instruments
++  Getty Images (n.d.). Slash the Guitarist. https://loudwire.com/slash-how-technology-changed-soul-rock-music-interview/
++  Imgur. (n.d.). Concrete Texture. Retrieved June 3, 2023, from https://imgur.com/9TNATCF
++    Google. (n.d.). Autocomplete occuring on Google search bar. https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/sf_autocomplete_search.jpg
++      ijeab. (n.d.). Metal Texture. https://www.freepik.com/free-photo/metal-texture-with-dust-scratches-cracks-textured-backgrounds_1235314.htm#query=grunge%20overlay&#38;position=0&#38;from_view=keyword&#38;track=ais
 
 ### Fonts and Icons
 +  SiPanji. (2022, August 31). Zombies coming graffiti font. Fontspace. https://www.fontspace.com/zombies-coming-graffiti-font-f84155 
