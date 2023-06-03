@@ -17,15 +17,40 @@ The web app is responsive and should work with most desktop and mobile resolutio
 + Desktop Monitor **(1920px x 1080px)**
 + Samsung Galaxy S8+ **(360px x 740px)**
 
-## Process
+## Development Process
 
 ### Iteration 1 - Functional but Ugly
 
+<img width="500" alt="iteration 1 form" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/1f9cd4c3-0134-4e5b-9b62-a6daf1da164a">
 
+<img width="500" alt="iteration 1 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/6a0a27c4-de58-416f-a113-73e7ff08ca74">
+
+Changes (lessons learned and best practices)
 
 ### Iteration 2 - Better Functionality
+<img width="500" alt="iteration 2 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/a8ae0f7b-8eb5-4ae4-bfb2-f8e2a2353f21">
+
+<img width="500" alt="iteration 2 form" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/702877de-e0ad-451c-857a-a05a246c1046">
+
+Changes (lessons learned and best practices)
 
 ### Iteration 3 - Cleaning it up
+Changes (lessons learned and best practices)
+
+#### Desktop
+<img width="500" alt="iteration 3 desktop songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/d8efb793-0e19-476c-a442-19bb39751697">
+
+<img width="500" alt="iteration 3 desktop form top" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/e06d807a-d816-4897-9822-ff6d9be3453f">
+
+<img width="500" alt="iteration 3 desktop form bottom" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/edef91f3-4947-463b-a7e7-2589433f3722">
+
+#### Mobile
+
+<img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/e084ec58-31ab-4161-a009-3423cb438420">
+
+<img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/a1dadb6f-791e-4550-9abd-a7c42fe22e8f">
+
+<img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/978e2aee-11e6-4b39-8f1d-34c0cb65e1ab">
 
 ## Future Improvements
 Currently, the functionality of *My Song History* is very basic. The typical user journey for this app is as follows:
