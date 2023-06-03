@@ -1,6 +1,6 @@
-/* General Styling------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+/* General Styling------------------------------------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,6 +14,10 @@ html {
     font-family: 'Poppins', sans-serif;
 }
 
+button, input, select{
+  font-family: 'Poppins', sans-serif;
+}
+
 html, body {
   height:100%;
   width:100%;
@@ -22,31 +26,33 @@ html, body {
   font-weight: 400; 
 }
 
-button, input, select{
-  font-family: 'Poppins', sans-serif;
-}
-
 img {
   image-rendering: auto;
 }
 
 .close:hover, .delete:hover, .more:hover, .artist-tag:hover, button:hover, input[type="submit"], select{
+  /* Changes cursor to pointer, signifying interactivity */
   cursor: pointer;
 }
 
-/* header styling -------------------------------------------------*/
+/* Header styling -------------------------------------------------*/
 header{
   background-color: #3E3E3E;
   width: 100%;
-}
-header{
   height: 3rem;
 }
 
 header img{
   height: 2rem;
   width: auto;
-  /* filter: brightness(80%); */
+}
+
+#logo{
+  padding: 0 2rem;
+  gap: 0.8rem;
+  height: 100%;
+  align-content: center;
+  color: #ffffff;
 }
 
 #year-genre, #logo{
@@ -57,24 +63,28 @@ header img{
   width: 100%;
 }
 
-#logo{
-  padding: 0 2rem;
-  gap: 0.8rem;
-  height: 100%;
-  align-content: center;
-  color: #ffffff;
-}
-/* main & footer styling -------------------------------------------------*/
+
+/* Main & Footer styling -------------------------------------------------*/
 main, footer {
   background-color: #181818;
   width: 100%;
   height: fit-content;
-
   overflow-x:hidden;
 }
 
 main{
   min-height: 100%;
+}
+
+#songlist{
+  width: 100%;
+  margin: 2rem 0;
+}
+
+li #blank-msg{
+  width: 100%;
+  color: white;
+  text-align: center;
 }
 
 footer{
@@ -83,16 +93,15 @@ footer{
   align-items: center;
   justify-content: center;
   height: 50px;
-
   font-size: 1rem;
-  
 }
 
 footer, #artist-msg{
+  /* for subtle text that is less important, a dark color is used */
   color: #434343;
 }
 
-/* form styling -------------------------------------------------*/
+/* Form styling -------------------------------------------------*/
 form {
   margin: 1rem auto;
   display: flex;
@@ -102,7 +111,6 @@ form {
   gap: 1rem;
   font-size: 1rem;
 }
-
 
 .form-row {
   display: flex;
@@ -115,19 +123,21 @@ form {
 }
 
 .form-row > label, .form-row p, #error-text, form p {
+  /* Make important text, like labels, white */
   display: block;
   color: white;
 }
 
 form p{
+  /* This styles the "* Indicates required question" text */
   width: 100%;
   padding: .5em 1em;
-
   color: #c22626;
   font-size: 1.1em;
 }
 
 label .red{
+  /* used to emphasis which form elements are required */
   color: #c22626;
   font-weight: bold;
   padding: 0 0.2em;
@@ -140,6 +150,11 @@ label .red{
   font-size: 1.1em;
 }
 
+.error{
+  color: #c22626 !important;
+}
+
+/* Artist section of Form styling -------------------------------------------------*/
 #artist-adder{
   display: flex;
   flex-direction: row;
@@ -181,30 +196,28 @@ label .red{
   padding: 0 1rem;
 }
 
-.error{
-  color: #c22626 !important;
-}
-
+/* Modal (Pop-up) styling -------------------------------------------------------------*/
 /* modal CSS adapted from https://www.w3schools.com/howto/howto_css_modals.asp -------*/
 
-/* Black overlay appears when modal open*/
+/* Black overlay appears when modal is open*/
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
+  z-index: 2; /* Sit on top of all other content*/
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; /* Enables scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.8); /* Black w/ reduced opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
+  /* This is the pop-up window housing the form */
   background-color: #181818;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px 40px;
   width: 80%;
   position: relative;
@@ -216,7 +229,7 @@ label .red{
   line-height: 2.441rem;
 }
 
-/* The Close Button */
+/* The Close Button for the form*/
 .close {
   color: #c9c9c9;
   position: absolute;
@@ -229,28 +242,18 @@ label .red{
 
 .close:hover,
 .close:focus {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255); /* becomes more visible upon interaction */
   text-decoration: none;
 }
 
-/*song list styling -------------------------------------------------*/
+/*Song Item styling -------------------------------------------------*/
 [hidden] {
+  /* hides content when song item is truncated */
   display: none !important;
 }
 
-#songlist{
-  width: 100%;
-  margin: 2rem 0;
-}
-
-li #blank-msg{
-  width: 100%;
-  color: white;
-  text-align: center;
-}
-
-/*song card styling -------------------------------------------------*/
 .song-card{
+  /* styling for overall song item */
   display: flex;
   flex-direction: column;
 
@@ -258,28 +261,30 @@ li #blank-msg{
   height: fit-content;
 
   background-color: transparent;
-
   box-shadow: 0px 20.8857px 16.7085px rgba(0, 0, 0, 0.35);
   border: 0.2rem solid;
   color: #1F1F1F;
 
   padding: 5px 30px;
   gap: 20px;
-
   margin: 2rem 4rem;
 }
 
 .thumbnail{
+  /* image in each song item */
   height: 10rem;
   width: auto;
   filter: brightness(80%);
 }
 
 .thumbnail:hover{
+  /* increases in brightness to indicate interactivity */
   filter: brightness(100%);
 }
 
-.basic-info {  display: grid;
+.basic-info {  
+  /*auto-generated from https://grid.layoutit.com */
+  display: grid;
   grid-template-columns: 1fr 5fr;
   grid-template-rows: 4.5fr 5.5fr;
   gap: 0px 1rem;
@@ -291,17 +296,16 @@ li #blank-msg{
 
 .thumbnail-area { grid-area: thumbnail-area; }
 
-.top { grid-area: top; }
+.top { 
+  grid-area: top;
+  border-bottom: 0.2rem solid #1F1F1F;
+  height: 4.5rem;
+}
 
 .bottom { grid-area: bottom; }
 
 
-
-
-/* "top" layout auto-generated  from https://grid.layoutit.com */
-
 .bottom, .top, .tags{
-  /* grid-template-columns: 1fr 1fr; */
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -316,18 +320,12 @@ li #blank-msg{
   flex-wrap: wrap;
 }
 
-.top {
-  border-bottom: 0.2rem solid #1F1F1F;
-  height: 4.5rem;
-}
-
-
-
 .delete, .more{
   filter: brightness(40%);
 }
 
 .delete:hover, .more:hover{
+  /* becomes more visible upon interaction */
   filter: brightness(100%);;
 }
 
@@ -340,7 +338,7 @@ li #blank-msg{
   height: 5.5rem;
 }
 
-/*Styling the name and artist */
+/*Styling the name and artist text*/
 .name-artist{
   font-size: 1.25rem; 
 }
@@ -351,6 +349,7 @@ li #blank-msg{
 }
 
 .name-artist a img{
+  /*Styling the link icon next to the song title*/
   height: 1em;
   width:auto;
   filter: brightness(400%);
@@ -358,6 +357,7 @@ li #blank-msg{
 }
 
 .name-artist a:hover{
+  /*Underline appears to make text appear like link*/
   text-decoration: underline;
   color: white;
 }
@@ -373,7 +373,7 @@ li #blank-msg{
 }
 
 
-/* List View Item: Hidden Info------------- */
+/* Song Item: Hidden Info styles below*/
 .hidden-info{
   font-size: 0.8rem;
   line-height: 1.5rem;
@@ -399,12 +399,10 @@ li #blank-msg{
   font-size: 1.1em;
 }
 
-
 .mood-area { 
   grid-area: mood-area;
   font-size: 1.25rem;
  }
-
 
 .id-area { grid-area: id-area; }
 
@@ -415,7 +413,7 @@ li #blank-msg{
 .link-area { grid-area: link-area; }
 
 
-/* mood tag styling -------------------------------------------------------------------*/
+/* Tag Styling -------------------------------------------------------------------*/
 .tag, .artist-tag, .mood-tag{
   width: fit-content;
   height: fit-content;
@@ -431,6 +429,7 @@ li #blank-msg{
 
 }
 .summarised .tag{
+  /* mood tags do not have color when song item is truncated */
   background-color: #252525;
   color: #cccccc;
   font-weight: normal;
@@ -452,9 +451,13 @@ li #blank-msg{
   filter: none;
 }
 
-/* mood tag styles adapted from https://codepen.io/attilahajzer/pen/WbbLpe */
+.mood-tag label span, .artist-tag{
+  text-align: center;
+  padding: 0 1rem;
+  display: block;
+}
 
- .mood-tag{
+.mood-tag{
   background-color: #ffffff;
   border: none;
   overflow: hidden;
@@ -474,12 +477,6 @@ li #blank-msg{
     font-size: 1.1em;
 }
 
-.mood-tag label span, .artist-tag{
-  text-align: center;
-  padding: 0 1rem;
-  display: block;
-}
-
 .mood-tag input {
   position: absolute;
   display: none;
@@ -496,10 +493,6 @@ li #blank-msg{
 .mood-tag label input:checked + span, .tag{
   color: #3E3E3E;
 }
-
-/* .mood-tag input:checked + span {
-
-} */
 
 label[for="happy"] input:checked + span, .happy{
   background-color: #9adbf1;
@@ -553,8 +546,7 @@ label[for="triumphant"] input:checked + span, .triumphant{
   background-color: #99d1b1;
 }
 
-
-/* Button Styling ---------------------------------------*/
+/* Button Styling -------------------------------------------------------*/
 button, input[type="submit"]{
   padding: 10px 15px;
   background: #38899a;
@@ -574,6 +566,7 @@ button, input[type="submit"]{
   height: 3rem;
   gap: 20px;
 
+  /* buttons only become fully visible on hover, to signify interactivity */
   filter: brightness(80%);
 }
 
@@ -596,8 +589,6 @@ input[type="submit"]{
 
 #fixed{
   position: fixed;
-  /* width: 200px;
-  height: 100px; */
   bottom: 0px;
   right: 0px;
   margin: 1rem;
@@ -619,32 +610,18 @@ input[type="submit"]{
   transform: rotate(0turn);
 }
 
-/* MOBILE STYLING STARTS HERE-------------------------- */
-
+/* MOBILE STYLING STARTS HERE---------------------------------------------------------------------- */
 @media screen and (max-width: 900px){
-  .hidden-info{
-    font-size: 1em;
-  }
-
-  .thumbnail{
-    width: 100%;
-    height: auto;
-  }
-
-  .top{
-    height: 100%;
-    border: none;
-  }
-  
+  /* General Styling ------------------------------------------------------------------ */
   html, body{
     font-size: 11px;
   }
 
+  /* Song Card Styling ------------------------------------------------------------------ */
   .song-card{
     margin: 1rem 1rem;
     padding: 0.75rem 0.5rem;
     gap: 1rem;
-    /* padding: 0; */
   }
 
   .basic-info {  
@@ -657,8 +634,28 @@ input[type="submit"]{
     grid-template-areas:
       "thumbnail-area top"
       "bottom bottom";
+  }
 
-    /* border: 2px solid blue; */
+  .delete{
+    height: 3.5em;
+  }
+
+  .name-artist{
+    font-size: 1.1em;
+  }
+  
+  .name-artist strong{
+    font-size: 1.5em;
+  }
+
+  .thumbnail{
+    width: 100%;
+    height: auto;
+  }
+
+  .top{
+    height: 100%;
+    border: none;
   }
 
   .top, .bottom{
@@ -685,18 +682,6 @@ input[type="submit"]{
     height: 1em;
   }
 
-  .delete{
-    height: 3.5em;
-  }
-
-  .name-artist{
-    font-size: 1.1em;
-  }
-  
-  .name-artist strong{
-    font-size: 1.5em;
-  }
-
   .hidden-info{
     font-size: 1.1em;
     margin: 0;
@@ -711,10 +696,11 @@ input[type="submit"]{
     
   }
 
+  /* Button Styling-------------------------------------------------------- */
   #fixed p{
     display: none;
   }
-  
+
   #fixed{
     height: 6rem;
     padding: 0.6rem;
@@ -722,10 +708,17 @@ input[type="submit"]{
     filter: none;
   }
 
+  /* Footer Styling-------------------------------------------------------- */
   footer{
     font-size: 1.5em;
   }
 
+  footer, #artist-msg{
+    /* Increase brightness as font becomes harder to read on mobile */
+    color: #6c6c6c;
+  }
+
+  /* Form Styling-------------------------------------------------------- */
   .modal-content{
     width: 90%;
     padding: 0.6rem 1rem;
@@ -742,28 +735,43 @@ input[type="submit"]{
     margin-top: 1rem;
   }
 
+  #year-genre{
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  input[type="submit"]{
+    font-size: 2rem;
+    width: auto;
+    padding: 0.4rem 0;
+    margin: 0 3rem;
+  }
+
+  .form-row > input,
+  .form-row > select,
+  #artist-adder > input {
+    padding: 1rem;
+    font-size: 1.2em;
+  }
+
+  /* Tag Styling---------------------------------------------------*/
+  .mood-tag{
+    border-radius: 1.7rem/50%;
+  }
+
   .mood-tag label {
     line-height: 2.8rem;
     font-size: 1.1em;
   }
 
-  .mood-tag{
-    border-radius: 1.7rem/50%;
-    /* border: 2px solid red; */
-  }
-  
-  footer, #artist-msg{
-    color: #6c6c6c;
+  .artist-tag{
+    filter: brightness(250%) saturate(0%);
   }
 
+  /* Artist Section of Form Styling---------------------------------------------------*/
   #artist-adder{
     flex-direction: column;
     gap: 1.5rem;
-  }
-
-  #year-genre{
-    flex-direction: column;
-    gap: 2rem;
   }
 
   #artist-adder button, input[type="submit"]{
@@ -774,23 +782,6 @@ input[type="submit"]{
     width: 15rem;
     font-size: 1.5rem;
     padding: 1rem 0;
-  }
-  input[type="submit"]{
-    font-size: 2rem;
-    width: auto;
-    padding: 0.4rem 0;
-    margin: 0 3rem;
-  }
-
-  .artist-tag{
-    filter: brightness(250%) saturate(0%);
-  }
-
-  .form-row > input,
-  .form-row > select,
-  #artist-adder > input {
-    padding: 1rem;
-    font-size: 1.2em;
   }
 
   #artist-list{

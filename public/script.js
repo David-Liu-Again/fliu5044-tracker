@@ -103,8 +103,7 @@ form.addEventListener("submit", function(event) {
     moodArray
   );
 
-  // Give confirmaton feedback to user
-  msgTextElem.innerHTML = `New song added!`;
+  closeModal();
 
   // Clear the value of the inputs once the task has been added to the page
   resetForm();
@@ -135,6 +134,10 @@ addSongButton.onclick = function() {
 
 // When the user clicks on the "x" button in the popup, close the modal
 formClose.onclick = function() {
+  closeModal();
+}
+
+function closeModal(){
   formModal.style.display = "none";
   resetForm();
 }
