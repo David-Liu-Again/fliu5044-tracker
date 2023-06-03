@@ -25,17 +25,19 @@ The web app is responsive and should work with most desktop and mobile resolutio
 
 <img width="500" alt="iteration 1 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/6a0a27c4-de58-416f-a113-73e7ff08ca74">
 
-Changes (lessons learned and best practices)
+Development begun by cloning a generic task tracker template (thanks Rob) and changing the form labels and input fields to accommodate for all the data that needed to be stored about each song. Obviously the user interface was extremely messy, but the core functionality of the web app was mostly there. Users could add songs to the displayed list via a form on the same page. The moods and artist names form inputs were not yet coded due to their complexity. 
 
 ### Iteration 2 - Better Functionality
 <img width="500" alt="iteration 2 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/a8ae0f7b-8eb5-4ae4-bfb2-f8e2a2353f21">
 
 <img width="500" alt="iteration 2 form" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/702877de-e0ad-451c-857a-a05a246c1046">
 
-Changes (lessons learned and best practices)
+Some basic styling was applied to the app, for faster debugging and iteration. Moods and artists could now be added to songs via the form. Whilst testing out the form, I realised that users could get away with submitting a form without inputting an arist, since the functionality for adding artist names was more than a simple text input. I had to manually check (with javascript) that the user had input an artist name when they submitted the form, which is something that probably applies to any custom form input system.
+
+Also, following feedback on my proposed design for the app, I decided to drastically change the layout of the app. Previously, the "Add New Song" form and the list of songs were two sections of one long webpage. Users had to scroll all the way up and down to access the form or view a particular song in the list, which was time-consuming. So I turned the form into a modal pop-up that could be accessed anywhere, from the button fixed to the bottom right of the screen. This will make the user experience more efficient. 
 
 ### Iteration 3 - Cleaning it up
-Changes (lessons learned and best practices)
+This stage was all about applying CSS styles to make the web app look professional. I opted for a dark, subtle colour palette, inspired by the Spotify interface. 
 
 #### Desktop
 <img width="500" alt="iteration 3 desktop songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/d8efb793-0e19-476c-a442-19bb39751697">
@@ -44,6 +46,8 @@ Changes (lessons learned and best practices)
 
 <img width="500" alt="iteration 3 desktop form bottom" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/edef91f3-4947-463b-a7e7-2589433f3722">
 
+Feedback on the design indicated that users did not recognise that a song's title, artist name(s) and image were links that would open a new tab. I added some styling to make this function more obvious. This included adding the link icon to the right of the song title and making the song title and artist name underlined when users hovered over them, since underlined text is usually associated with a link. I reduced the brightness of the images slightly. The images now only return to full brightness when the mouse is hovered over them, to signify interactivity. 
+
 #### Mobile
 
 <img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/e084ec58-31ab-4161-a009-3423cb438420">
@@ -51,6 +55,8 @@ Changes (lessons learned and best practices)
 <img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/a1dadb6f-791e-4550-9abd-a7c42fe22e8f">
 
 <img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/978e2aee-11e6-4b39-8f1d-34c0cb65e1ab">
+
+A few concessions were made for mobile users. The most prominent one, from a development perspective, was simplifying the structure of the song element. All the content visible in the collapsed view of a song element (e.g. the thumbnail, artist and song name, delete button) used to be contained in nested divs with flexbox display styling. However, when it came to the mobile styling, I wanted to alter the overall layout of the song element, so that the "Show More" button and mood tags would be under the thumbnail, rather than beside it. This was hard to do with flexbox divs and I ended up replacing multiple divs with just the one and styling it with grid display, so that the layout could be changed between mobile and desktop. In the future, it's better forcomplex layouts be styled with CSS grid. Flexbox really only suits single column/rows.
 
 ## Future Improvements
 Currently, the functionality of *My Song History* is very basic. The typical user journey for this app is as follows:
