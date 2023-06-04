@@ -25,7 +25,7 @@ The web app is responsive and should work with most desktop and mobile resolutio
 
 <img width="500" alt="iteration 1 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/6a0a27c4-de58-416f-a113-73e7ff08ca74">
 
-Development began by cloning a generic task tracker template (thanks Rob) and changing the form fields to accommodate the data that needed to be stored about each song. The user interface was extremely messy, but the core functionality of the web app was mostly there. Users could add songs via a form on the same page. The form inputs for moods and artist names were not yet coded due to their complexity.
+Development began by cloning a single-page, generic task tracker template (thanks Rob) and changing the form fields to accommodate the data that needed to be stored about each song. The user interface was extremely messy, but the core functionality of the web app was mostly there. Users could add songs via a form at the top of the page. The form inputs for moods and artist names were not yet coded due to their complexity.
 
 ### Iteration 2 - Better Functionality
 <img width="500" alt="iteration 2 songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/a8ae0f7b-8eb5-4ae4-bfb2-f8e2a2353f21">
@@ -35,7 +35,8 @@ Development began by cloning a generic task tracker template (thanks Rob) and ch
 <br>
 
 Some basic styling was applied to the app, for faster debugging and iteration. Moods and artists could now be added to songs via the form. Whilst testing out the form, I realised that users could get away with submitting a form without inputting an artist, since the functionality for adding artist names was more than simple text input. I had to manually check (with JavaScript) that the user had input an artist name when they submitted the form, which is something that probably applies to any custom form input system.
-Also, following feedback on my proposed design for the app, I decided to drastically change the layout of the app. Previously, the "Add New Song" form and the list of songs were two sections of one long webpage. Users had to scroll up and down to access the form or view a particular song in the list, which was time-consuming. So, I turned the form into a modal pop-up that could be accessed anywhere, from the button fixed to the bottom right of the screen. This will make the user experience more efficient.
+
+Also, following feedback on my proposed design for the app, I decided to change the layout. Previously, the "Add New Song" form and the list of songs were two sections of one long webpage. Users had to scroll up and down to access the form or view a particular song in the list, which was time-consuming. So, I turned the form into a modal pop-up that could be accessed anywhere, from the button fixed to the bottom right of the screen. This will make the user experience more efficient.
 
 ### Iteration 3 - Cleaning it up
 This stage was all about applying CSS styles to make the web app look professional. I opted for a dark, subtle colour palette, inspired by the Spotify interface. 
@@ -47,7 +48,7 @@ This stage was all about applying CSS styles to make the web app look profession
 
 <img width="500" alt="iteration 3 desktop form bottom" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/edef91f3-4947-463b-a7e7-2589433f3722">
 
-Feedback on the design indicated that users did not recognise that a song's title, artist name(s), and image were links that would open a new tab. I added some styling to make this function more obvious. This included adding the link icon to the right of the song title and making the song title and artist name underlined when users hovered over them since the underlined text is usually associated with a link. I reduced the brightness of the images slightly. The images now only return to full brightness when the mouse is hovered over them, to signify interactivity.
+Feedback on the design indicated that users did not recognise that a song's title, artist name(s), and image were links that would open a new tab. I added some styling to make this function more obvious. This included adding the link icon to the right of the song title and making the song title and artist name underlined when users hovered over them, since the underlined text is usually associated with a link. I reduced the brightness of the images slightly. The images now only return to full brightness when the mouse is hovered over them, to signify interactivity.
 
 #### Mobile
 
@@ -57,7 +58,7 @@ Feedback on the design indicated that users did not recognise that a song's titl
 
 <img height="400" alt="iteration 3 mobile songs" src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/978e2aee-11e6-4b39-8f1d-34c0cb65e1ab">
 
-A few concessions were made for mobile users. The most prominent one, from a development perspective, was simplifying the structure of the song element. All of the content visible in the collapsed view of a song element (e.g. the thumbnail, artist and song name, delete button) used to be contained in nested divs with flexbox display styling. However, when it came to the mobile styling, I wanted to alter the overall layout of the song element, so that the "Show More" button and mood tags would be under the thumbnail, rather than beside it. This was hard to do with flexbox divs and I ended up replacing multiple divs with just one and styling it with a CSS grid so that the layout could be changed between mobile and desktop. In the future, it's better for complex layouts to be styled with a CSS grid. Flexbox only suits single columns/rows.
+A few concessions were made for mobile users. The most prominent one, from a development perspective, was simplifying the structure of the song element. All of the content visible in the collapsed view of a song element (e.g. the thumbnail, artist and song name, delete button) used to be contained in nested divs with flexbox display styling. However, when it came to the mobile styling, I wanted to alter the overall layout of this content, so that the "Show More" button and mood tags would be under the thumbnail, rather than beside it. This was hard to do with flexbox divs and I ended up replacing multiple divs with just one and styling it with a CSS grid so that the layout could be changed between mobile and desktop. In the future, it's better for complex layouts to be styled with a CSS grid. Flexbox only suits single columns/rows.
 
 ## Future Improvements
 Currently, the functionality of My Song History is very basic. The typical user journey for this app is as follows:
@@ -73,11 +74,12 @@ Some users might find that the app has utility, in that it is a convenient place
 ### 🔍Filter and Sort Functions
 ![filter and search functions](https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/08fe670a-e31d-499e-b878-dd1f693b9f08)
 
-The initial design for My Song History included a search bar, placed above the list of added songs. Users could enter an artist name, genre, year of release, or mood and the list below would automatically filter for any songs matching the user input, as the user types. Left of the search bar was a dropdown and toggle button, to allow users to sort the order of the songs in the list below. They could sort songs by artist name, year of release, song title, or date added by selecting an option on the dropdown. The toggle button would reverse the song order when clicked.
+The initial design for My Song History included a search bar, placed above the list of added songs. Users could enter an artist name, genre, year of release, or mood and the list below would automatically filter for any songs matching the user input, as the user types. Left of the search bar was a dropdown and toggle button, to allow users to sort the order of the songs in the list below. They could sort songs by artist name, year of release, song title, or date added by selecting an option on the dropdown. The toggle button would reverse the sort order when clicked.
+
 This functionality is found in most search engines and music-streaming websites. Users would likely expect something like this, so it would be beneficial to add it in future iterations.
 
 ###  🔄 Auto-save and "Reset" button for Form
-Currently, the form resets itself when the user closes it. It would be better if the form automatically saved the user's input as they entered it, even if they closed the form or the browser tab. Then the user would not have to type in the details of their song all over again. To complement this, a "reset" button could be placed near the top of the form. When clicked, it could clear all the user input from the form. this would be useful if, halfway through filling out the form, a user decided that they no longer wanted to add a song.
+Currently, the form resets itself when the user closes it. It would be better if the form automatically saved the user's input as they entered it, even if they closed the form or the browser tab. Then the user would not have to type in the details of their song all over again. To complement this, a "reset" button could be placed near the top of the form. When clicked, it would clear all the user input from the form. this would be useful if, halfway through filling out the form, a user decided that they no longer wanted to add a song.
 
 ### 🔮Autofill for Form
 <img src="https://github.com/David-Liu-Again/fliu5044-tracker/assets/128761089/db280760-fc09-4d39-bc1d-2ab3419dfff8"  width="400" height="auto" style="margin = 0 auto">
